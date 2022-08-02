@@ -20,7 +20,6 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import it.finanze.sanita.fse2.ms.gtw.config.dto.response.ConfigItemDTO;
 import it.finanze.sanita.fse2.ms.gtw.config.dto.response.ErrorResponseDTO;
 import it.finanze.sanita.fse2.ms.gtw.config.dto.response.ResponseDTO;
