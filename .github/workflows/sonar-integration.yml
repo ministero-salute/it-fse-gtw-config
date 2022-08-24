@@ -52,5 +52,5 @@ jobs:
       - name: Maven build/verify by SonarCloud
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: d91f859ee53afa535c96c1910f884b7751adb9a8
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=it.finanze.sanita.fse2:gtw-config-ms -DskipTests=true
