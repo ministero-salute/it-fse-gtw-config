@@ -80,10 +80,10 @@ public class ConfigItemsSRV extends AbstractService implements IConfigItemsSRV {
             boolean isDeleted = false;
 
             if (StringUtility.isNullOrEmpty(itemKey)) {
-                log.info("Deleting all configuration items of class {}", key);
+                log.debug("Deleting all configuration items of class {}", key);
                 isDeleted = configItemsRepo.deleteAll(key);
             } else {
-                log.info("Deleting item of class {}, having key {}", key, itemKey);
+                log.debug("Deleting item of class {}, having key {}", key, itemKey);
                 isDeleted = configItemsRepo.deleteByKey(key, itemKey);
             }
             if (!isDeleted) {
