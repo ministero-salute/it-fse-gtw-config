@@ -149,9 +149,6 @@
 				<configuration>
 					<excludes>
 						<exclude>src/main/java/it/finanze/sanita/fse2/ms/gtw/**/config/OpenApiCFG.java</exclude>
-						<exclude>src/main/java/it/finanze/sanita/fse2/ms/gtw/**/exceptions/**/*.*</exclude>
-						<exclude>src/main/java/it/finanze/sanita/fse2/ms/gtw/**/enums/**/*.*</exclude>
-						<exclude>src/main/java/it/finanze/sanita/fse2/ms/gtw/**/dto/**/*.*</exclude>
 					</excludes>
 				</configuration>
 				<executions>

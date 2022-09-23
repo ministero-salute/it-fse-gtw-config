@@ -5,21 +5,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
+import com.mongodb.MongoException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.UpdateDefinition;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.HttpClientErrorException;
@@ -29,6 +31,7 @@ import it.finanze.sanita.fse2.ms.gtw.config.dto.response.ConfigItemDTO;
 import it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemType;
 import it.finanze.sanita.fse2.ms.gtw.config.repository.entity.ConfigItemETY;
 import it.finanze.sanita.fse2.ms.gtw.config.service.IConfigItemsSRV;
+import org.springframework.web.client.HttpServerErrorException;
 
 /**
  * Test class for configuration items API.
@@ -170,6 +173,78 @@ class ControllerTest extends AbstractTest {
             () -> assertThrows(HttpClientErrorException.NotFound.class, () -> deleteConfigurationItems(ConfigItemType.GARBAGE, null)),
             () -> assertThrows(HttpClientErrorException.NotFound.class, () -> updateConfigurationItems(ConfigItemType.GARBAGE, UUID.randomUUID().toString(), UUID.randomUUID().toString()))
         );
-        
+    }
+
+    @Test
+    @DisplayName("Get configuration items error test")
+    void getConfigurationItemsErrorTest() {
+        Mockito.doThrow(new MongoException("Mongo error")).when(mongoTemplate).find(any(Query.class), eq(ConfigItemETY.class));
+        assertThrows(HttpServerErrorException.InternalServerError.class, () -> getConfigurationItems(ConfigItemType.GENERIC));
+    }
+
+    @DisplayName("Save configuration items error test")
+    @ParameterizedTest
+    @ValueSource(ints = {10})
+    void saveConfigurationItemsErrorTest(final int numItems) {
+
+        // Data preparation
+        Map<String, String> configItems = new HashMap<>();
+        for (int i=0; i<numItems; i++) {
+            configItems.put(UUID.randomUUID().toString().substring(24), "Property " + i);
+        }
+
+        Mockito.doThrow(new MongoException("Mongo error")).when(mongoTemplate).insertAll(any(Collection.class));
+        // Starting test
+        assertThrows(HttpServerErrorException.InternalServerError.class, () -> saveConfigurationItems(ConfigItemType.GENERIC, configItems));
+    }
+
+    @DisplayName("Delete configuration items error test")
+    @ParameterizedTest
+    @ValueSource(ints = {10})
+    void deleteConfigurationItemsErrorTest(final int numItems) {
+
+        // Data preparation
+        String randomProperty = null;
+        Map<String, String> configItems = new HashMap<>();
+        for (int i=0; i<numItems; i++) {
+            randomProperty = UUID.randomUUID().toString().substring(24);
+            configItems.put(randomProperty, "Property " + i);
+        }
+
+        saveConfigurationItems(ConfigItemType.GENERIC, configItems);
+        assumeTrue(!CollectionUtils.isEmpty(mongoTemplate.findAll(ConfigItemETY.class)), "Entity should exist to execute deletion");
+
+        Mockito.doThrow(new MongoException("Mongo error")).when(mongoTemplate).remove(any(Query.class), eq(ConfigItemETY.class));
+        // Starting test
+        assertThrows(HttpServerErrorException.InternalServerError.class, () -> deleteConfigurationItems(ConfigItemType.GENERIC, null));
+
+        Mockito.doThrow(new MongoException("Mongo error")).when(mongoTemplate).updateMulti(any(Query.class), any(UpdateDefinition.class), eq(ConfigItemETY.class));
+        // Starting test
+        assertThrows(HttpServerErrorException.InternalServerError.class, () -> deleteConfigurationItems(ConfigItemType.GENERIC, "genericKey"));
+
+    }
+
+    @DisplayName("Update configuration items error test")
+    @ParameterizedTest
+    @ValueSource(ints = {10})
+    void updateConfigurationItemsErrorTest(final int numItems) {
+
+        // Data preparation
+        String randomProperty = null;
+        Map<String, String> configItems = new HashMap<>();
+        for (int i=0; i<numItems; i++) {
+            randomProperty = UUID.randomUUID().toString().substring(24);
+            configItems.put(randomProperty, "Property " + i);
+        }
+
+        saveConfigurationItems(ConfigItemType.GENERIC, configItems);
+        assumeTrue(!CollectionUtils.isEmpty(mongoTemplate.findAll(ConfigItemETY.class)), "Entity should exist to execute deletion");
+
+        final String testValue = "TEST_VALUE";
+
+        // Starting test
+        Mockito.doThrow(new MongoException("Mongo error")).when(mongoTemplate).updateMulti(any(Query.class), any(UpdateDefinition.class), eq(ConfigItemETY.class));
+        String finalRandomProperty = randomProperty;
+        assertThrows(HttpServerErrorException.InternalServerError.class, () -> updateConfigurationItems(ConfigItemType.GENERIC, finalRandomProperty, testValue));
     }
 }

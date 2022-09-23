@@ -5,6 +5,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -39,7 +40,7 @@ abstract class AbstractTest {
     @Qualifier("restTemplate")
     private RestTemplate restTemplate;
 
-    @Autowired
+    @SpyBean
     protected MongoTemplate mongoTemplate;
 
     private String getBaseURL() {
