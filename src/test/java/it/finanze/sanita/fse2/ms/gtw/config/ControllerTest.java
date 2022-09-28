@@ -1,16 +1,11 @@
 package it.finanze.sanita.fse2.ms.gtw.config;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-
-import java.util.*;
-
 import com.mongodb.MongoException;
+import it.finanze.sanita.fse2.ms.gtw.config.config.Constants;
+import it.finanze.sanita.fse2.ms.gtw.config.dto.response.ConfigItemDTO;
+import it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemType;
+import it.finanze.sanita.fse2.ms.gtw.config.repository.entity.ConfigItemETY;
+import it.finanze.sanita.fse2.ms.gtw.config.service.IConfigItemsSRV;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,13 +20,14 @@ import org.springframework.data.mongodb.core.query.UpdateDefinition;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.HttpClientErrorException;
-
-import it.finanze.sanita.fse2.ms.gtw.config.config.Constants;
-import it.finanze.sanita.fse2.ms.gtw.config.dto.response.ConfigItemDTO;
-import it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemType;
-import it.finanze.sanita.fse2.ms.gtw.config.repository.entity.ConfigItemETY;
-import it.finanze.sanita.fse2.ms.gtw.config.service.IConfigItemsSRV;
 import org.springframework.web.client.HttpServerErrorException;
+
+import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 
 /**
  * Test class for configuration items API.

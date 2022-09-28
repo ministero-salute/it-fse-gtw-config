@@ -78,7 +78,6 @@ public final class Constants {
 		private Profile() {
 			//This method is intentionally left blank.
 		}
-
 	}
   
 	/**

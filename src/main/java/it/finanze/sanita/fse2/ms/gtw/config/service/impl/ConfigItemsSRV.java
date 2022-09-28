@@ -24,7 +24,12 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class ConfigItemsSRV extends AbstractService implements IConfigItemsSRV {
     
-    @Autowired
+    /**
+	 * Serial version uid.
+	 */
+	private static final long serialVersionUID = 3840282801652564751L;
+	
+	@Autowired
     private IConfigItemsRepo configItemsRepo;
 
     @Override
