@@ -1,6 +1,7 @@
 package it.finanze.sanita.fse2.ms.gtw.config.controller.impl;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +17,11 @@ import it.finanze.sanita.fse2.ms.gtw.config.controller.IConfigItemsCTL;
 import it.finanze.sanita.fse2.ms.gtw.config.dto.response.ConfigItemDTO;
 import it.finanze.sanita.fse2.ms.gtw.config.dto.response.ResponseDTO;
 import it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemType;
+import it.finanze.sanita.fse2.ms.gtw.config.enums.ErrorLogEnum;
+import it.finanze.sanita.fse2.ms.gtw.config.enums.OperationLogEnum;
+import it.finanze.sanita.fse2.ms.gtw.config.enums.ResultLogEnum;
 import it.finanze.sanita.fse2.ms.gtw.config.exceptions.ValidationException;
+import it.finanze.sanita.fse2.ms.gtw.config.logging.LoggerHelper;
 import it.finanze.sanita.fse2.ms.gtw.config.repository.entity.ConfigItemETY;
 import it.finanze.sanita.fse2.ms.gtw.config.service.IConfigItemsSRV;
 import it.finanze.sanita.fse2.ms.gtw.config.utility.StringUtility;
@@ -39,10 +44,13 @@ public class ConfigItemsCTL extends AbstractCTL implements IConfigItemsCTL {
 	@Autowired
     private IConfigItemsSRV configItemsSRV;
 
+    @Autowired
+    private LoggerHelper logger;
+
     @Override
     public ResponseEntity<ConfigItemDTO> getConfigurationItems(final ConfigItemType type, final HttpServletRequest request) {
         
-        log.info("Searching for configuration items of type {}", type);
+        log.debug("Searching for configuration items of type {}", type);
         
         final List<ConfigItemETY> configItems = configItemsSRV.getConfigurationItems(type);
         return new ResponseEntity<>(new ConfigItemDTO(getLogTraceInfo(), configItems, configItems.stream().mapToInt(item -> item.getItems().size()).sum()), HttpStatus.OK);
@@ -51,13 +59,21 @@ public class ConfigItemsCTL extends AbstractCTL implements IConfigItemsCTL {
     @Override
     public ResponseEntity<ResponseDTO> saveConfigurationItems(final ConfigItemType type, final Map<String, String> configItems, final HttpServletRequest request) {
         
-
-        if (CollectionUtils.isEmpty(configItems)) {
-            throw new ValidationException("Collection of configuration items cannot be empty.");
-        } else {
-            log.info("Saving {} configuration items of type {}", configItems.size(), type);
-            final ConfigItemETY item = new ConfigItemETY(type.getName(), configItems);
-            configItemsSRV.saveConfigurationItems(Arrays.asList(item));
+        final Date startingDate = new Date();
+        try {
+            if (CollectionUtils.isEmpty(configItems)) {
+                throw new ValidationException("Collection of configuration items cannot be empty.");
+            } else {
+                log.info("Saving {} configuration items of type {}", configItems.size(), type);
+                final ConfigItemETY item = new ConfigItemETY(type.getName(), configItems);
+                configItemsSRV.saveConfigurationItems(Arrays.asList(item));
+                logger.info("Configuration Properties added successfully", OperationLogEnum.ADD_CONFIG_PROPERTIES, ResultLogEnum.OK, startingDate);
+            }
+        } catch (ValidationException e) {
+            throw e;
+        } catch (Exception e) {
+            logger.error("Error encountered while saving new configuration properties", OperationLogEnum.ADD_CONFIG_PROPERTIES, ResultLogEnum.KO, startingDate, ErrorLogEnum.KO_GENERIC);
+            throw e;
         }
 
         return new ResponseEntity<>(new ResponseDTO(getLogTraceInfo()), HttpStatus.OK);
@@ -66,22 +82,37 @@ public class ConfigItemsCTL extends AbstractCTL implements IConfigItemsCTL {
     @Override
     public ResponseEntity<ResponseDTO> deleteConfigurationItems(final ConfigItemType type, final String itemKey, final HttpServletRequest request) {
         
-        if (StringUtility.isNullOrEmpty(itemKey)) {
-            log.info("Deleting all configuration items of type {}", type);
-        } else {
-            log.info("Deleting configuration items of type {}, having key: {}", type, itemKey);
+        final Date startingDate = new Date();
+        try {
+            if (StringUtility.isNullOrEmpty(itemKey)) {
+                log.debug("Deleting all configuration items of type {}", type);
+            } else {
+                log.debug("Deleting configuration items of type {}, having key: {}", type, itemKey);
+            }
+    
+            configItemsSRV.deleteItemByKey(type.getName(), itemKey);
+            logger.info("Configuration Properties removed successfully", OperationLogEnum.REMOVE_CONFIG_PROPERTIES, ResultLogEnum.OK, startingDate);
+        } catch (Exception e) {
+            logger.error("Error encountered while removing configuration properties", OperationLogEnum.REMOVE_CONFIG_PROPERTIES, ResultLogEnum.KO, startingDate, ErrorLogEnum.KO_GENERIC);
+            throw e;
         }
 
-        configItemsSRV.deleteItemByKey(type.getName(), itemKey);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<ResponseDTO> updateConfigurationItems(final ConfigItemType type, final String itemKey, final String value, final HttpServletRequest request) {
         
-        log.info("Updating configuration items of type {}", type);
+        final Date startingDate = new Date();
+        log.debug("Updating configuration items of type {}", type);
 
-        configItemsSRV.updateItem(type, itemKey, value);
+        try {
+            configItemsSRV.updateItem(type, itemKey, value);
+            logger.info("Configuration Properties updated successfully", OperationLogEnum.UPDATE_CONFIG_PROPERTIES, ResultLogEnum.OK, startingDate);
+        } catch (Exception e) {
+            logger.error("Error encountered while updating configuration properties", OperationLogEnum.UPDATE_CONFIG_PROPERTIES, ResultLogEnum.KO, startingDate, ErrorLogEnum.KO_GENERIC);
+            throw e;
+        }
         return new ResponseEntity<>(new ResponseDTO(getLogTraceInfo()), HttpStatus.OK);
     }
     
