@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.validation.constraints.Size;
 
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
 import it.finanze.sanita.fse2.ms.gtw.config.repository.entity.ConfigItemETY;
 import lombok.Getter;
@@ -23,8 +24,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ConfigItemDTO extends ResponseDTO {
 
-    @Size(min = 0, max = 10000)
-    @Schema(description = "Elementi di configurazione")
+    @ArraySchema(minItems = 0, maxItems = 10000, schema = @Schema(implementation = ConfigItemETY.class))
     List<ConfigItemETY> configurationItems;
 
     @Size(min = 0, max = 10000)

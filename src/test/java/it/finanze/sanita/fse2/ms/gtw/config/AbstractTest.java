@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -22,6 +23,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import it.finanze.sanita.fse2.ms.gtw.config.config.Constants;
 import it.finanze.sanita.fse2.ms.gtw.config.dto.response.ConfigItemDTO;
 import it.finanze.sanita.fse2.ms.gtw.config.dto.response.ResponseDTO;
+import it.finanze.sanita.fse2.ms.gtw.config.dto.response.WhoIsResponseDTO;
 import it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemType;
 import lombok.extern.slf4j.Slf4j;
 
@@ -57,6 +59,12 @@ abstract class AbstractTest {
             .queryParam("type", type.getName());
         
         return restTemplate.getForObject(builder.toUriString(), ConfigItemDTO.class);
+    }
+
+    protected ResponseEntity<WhoIsResponseDTO> getGatewayName() {
+
+        final String url = getBaseURL() + "/whois";
+        return restTemplate.getForEntity(url, WhoIsResponseDTO.class);
     }
 
     protected ResponseDTO saveConfigurationItems(final ConfigItemType type, final Map<String, String> configItems) {

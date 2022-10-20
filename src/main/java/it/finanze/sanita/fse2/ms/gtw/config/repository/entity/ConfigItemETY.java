@@ -5,11 +5,10 @@ package it.finanze.sanita.fse2.ms.gtw.config.repository.entity;
 
 import java.util.Map;
 
-import javax.validation.constraints.Size;
-
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,10 +27,10 @@ import lombok.Setter;
 public class ConfigItemETY {
 
     @Field("key")
-	@Size(min = 0, max = 1000)
+	@Schema(minLength = 0, maxLength = 1000, description = "Categoria dei configuration items")
     private String key;
 
     @Field("config_items")
-	@Size(min = 0, max = 1000)
+	@Schema(minLength = 0, maxLength = 10000, description = "Mappa chiave-valore dei configuration items")
     private Map<String, String> items;
 }

@@ -56,4 +56,11 @@ public interface IConfigItemsSRV {
      * @return {@code true} if the configuration items are deleted correctly, {@code false} otherwise.
      */
     boolean deleteItemsByKeys(String key);
+
+    /**
+     * Returns the gateway name that identify the gateway where this microservice is running.
+     * 
+     * @return Gateway name.
+     */
+    String retrieveGatewayName();
 }

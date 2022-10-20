@@ -1,11 +1,20 @@
 package it.finanze.sanita.fse2.ms.gtw.config;
 
-import com.mongodb.MongoException;
-import it.finanze.sanita.fse2.ms.gtw.config.config.Constants;
-import it.finanze.sanita.fse2.ms.gtw.config.dto.response.ConfigItemDTO;
-import it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemType;
-import it.finanze.sanita.fse2.ms.gtw.config.repository.entity.ConfigItemETY;
-import it.finanze.sanita.fse2.ms.gtw.config.service.IConfigItemsSRV;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,21 +22,26 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.UpdateDefinition;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 
-import java.util.*;
+import com.mongodb.MongoException;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
+import it.finanze.sanita.fse2.ms.gtw.config.config.Constants;
+import it.finanze.sanita.fse2.ms.gtw.config.dto.response.ConfigItemDTO;
+import it.finanze.sanita.fse2.ms.gtw.config.dto.response.WhoIsResponseDTO;
+import it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemType;
+import it.finanze.sanita.fse2.ms.gtw.config.repository.entity.ConfigItemETY;
+import it.finanze.sanita.fse2.ms.gtw.config.service.IConfigItemsSRV;
 
 /**
  * Test class for configuration items API.
@@ -178,6 +192,7 @@ class ControllerTest extends AbstractTest {
         assertThrows(HttpServerErrorException.InternalServerError.class, () -> getConfigurationItems(ConfigItemType.GENERIC));
     }
 
+    @SuppressWarnings("unchecked")
     @DisplayName("Save configuration items error test")
     @ParameterizedTest
     @ValueSource(ints = {10})
@@ -242,5 +257,17 @@ class ControllerTest extends AbstractTest {
         Mockito.doThrow(new MongoException("Mongo error")).when(mongoTemplate).updateMulti(any(Query.class), any(UpdateDefinition.class), eq(ConfigItemETY.class));
         String finalRandomProperty = randomProperty;
         assertThrows(HttpServerErrorException.InternalServerError.class, () -> updateConfigurationItems(ConfigItemType.GENERIC, finalRandomProperty, testValue));
+    }
+
+    @Value("${gateway.full-qualified-name}")
+    String expectedGatewayName;
+
+    @Test
+    @DisplayName("WHOIS service test method")
+    void whoisServiceTest() {
+        ResponseEntity<WhoIsResponseDTO> response = getGatewayName();
+        
+        assertEquals(HttpStatus.OK, response.getStatusCode(), "The status code should be OK");
+        assertEquals(expectedGatewayName, response.getBody().getGatewayName(), "The gateway name should be the expected one");
     }
 }

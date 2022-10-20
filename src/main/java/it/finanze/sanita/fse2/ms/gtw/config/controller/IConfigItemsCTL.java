@@ -23,6 +23,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import it.finanze.sanita.fse2.ms.gtw.config.dto.response.ConfigItemDTO;
 import it.finanze.sanita.fse2.ms.gtw.config.dto.response.ErrorResponseDTO;
 import it.finanze.sanita.fse2.ms.gtw.config.dto.response.ResponseDTO;
@@ -34,7 +35,7 @@ import it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemType;
  * @author Simone Lungarella
  */
 @RequestMapping(path = "/v1")
-// @Tag(name = "Servizio recupero e gestione elementi di configurazione")
+@Tag(name = "Gateway Configuration Items service", description = "Gateway Configuration Items service")
 public interface IConfigItemsCTL {
 
     @GetMapping(value = "/config-items")

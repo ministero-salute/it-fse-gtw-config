@@ -6,6 +6,7 @@ package it.finanze.sanita.fse2.ms.gtw.config.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -27,6 +28,9 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class ConfigItemsSRV extends AbstractService implements IConfigItemsSRV {
     
+    @Value("${gateway.full-qualified-name}")
+    private String gatewayName;
+
     /**
 	 * Serial version uid.
 	 */
@@ -113,6 +117,11 @@ public class ConfigItemsSRV extends AbstractService implements IConfigItemsSRV {
             log.error("Error while deleting configuration items", e);
             throw new BusinessException("Error while deleting configuration items", e);
         }
+    }
+
+    @Override
+    public String retrieveGatewayName() {
+        return gatewayName;
     }
     
 }
