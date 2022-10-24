@@ -76,7 +76,7 @@ public class ConfigItemsCTL extends AbstractCTL implements IConfigItemsCTL {
             throw e;
         }
 
-        return new ResponseEntity<>(new ResponseDTO(getLogTraceInfo()), HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseDTO(getLogTraceInfo()), HttpStatus.CREATED);
     }
 
     @Override
