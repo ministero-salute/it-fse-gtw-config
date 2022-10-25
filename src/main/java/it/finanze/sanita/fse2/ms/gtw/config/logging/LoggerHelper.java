@@ -9,12 +9,14 @@ import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import it.finanze.sanita.fse2.ms.gtw.config.dto.LogDTO;
 import it.finanze.sanita.fse2.ms.gtw.config.enums.ILogEnum;
 import it.finanze.sanita.fse2.ms.gtw.config.enums.ResultLogEnum;
+import it.finanze.sanita.fse2.ms.gtw.config.service.IConfigItemsSRV;
 import it.finanze.sanita.fse2.ms.gtw.config.utility.StringUtility;
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,6 +32,12 @@ public class LoggerHelper {
 	@Value("${log.kafka-log.enable}")
 	private boolean kafkaLogEnable;
 
+	@Value("${spring.application.name}")
+	private String msName;
+
+	@Autowired
+	private IConfigItemsSRV configItems;
+
 	/*
 	 * Specify here the format for the dates
 	 */
@@ -43,7 +51,10 @@ public class LoggerHelper {
 
 		LogDTO logDTO = LogDTO.builder().message(message).operation(operation.getCode()).op_result(result.getCode())
 				.op_timestamp_start(dateFormat.format(startDateOperation))
-				.op_timestamp_end(dateFormat.format(new Date())).build();
+				.op_timestamp_end(dateFormat.format(new Date()))
+				.gateway_name(configItems.retrieveGatewayName())
+				.microservice_name(msName)
+				.build();
 
 		final String logMessage = StringUtility.toJSON(logDTO);
 		log.trace(logMessage);
@@ -58,7 +69,10 @@ public class LoggerHelper {
 
 		LogDTO logDTO = LogDTO.builder().message(message).operation(operation.getCode()).op_result(result.getCode())
 				.op_timestamp_start(dateFormat.format(startDateOperation))
-				.op_timestamp_end(dateFormat.format(new Date())).build();
+				.op_timestamp_end(dateFormat.format(new Date()))
+				.gateway_name(configItems.retrieveGatewayName())
+				.microservice_name(msName)
+				.build();
 
 		final String logMessage = StringUtility.toJSON(logDTO);
 		log.debug(logMessage);
@@ -73,7 +87,10 @@ public class LoggerHelper {
 
 		LogDTO logDTO = LogDTO.builder().message(message).operation(operation.getCode()).op_result(result.getCode())
 				.op_timestamp_start(dateFormat.format(startDateOperation))
-				.op_timestamp_end(dateFormat.format(new Date())).build();
+				.op_timestamp_end(dateFormat.format(new Date()))
+				.gateway_name(configItems.retrieveGatewayName())
+				.microservice_name(msName)
+				.build();
 
 		final String logMessage = StringUtility.toJSON(logDTO);
 		log.info(logMessage);
@@ -87,7 +104,10 @@ public class LoggerHelper {
 
 		LogDTO logDTO = LogDTO.builder().message(message).operation(operation.getCode()).op_result(result.getCode())
 				.op_timestamp_start(dateFormat.format(startDateOperation))
-				.op_timestamp_end(dateFormat.format(new Date())).build();
+				.op_timestamp_end(dateFormat.format(new Date()))
+				.gateway_name(configItems.retrieveGatewayName())
+				.microservice_name(msName)
+				.build();
 
 		final String logMessage = StringUtility.toJSON(logDTO);
 		log.warn(logMessage);
@@ -105,7 +125,10 @@ public class LoggerHelper {
 		LogDTO logDTO = LogDTO.builder().message(message).operation(operation.getCode()).op_result(result.getCode())
 				.op_timestamp_start(dateFormat.format(startDateOperation))
 				.op_timestamp_end(dateFormat.format(new Date())).op_error(error.getCode())
-				.op_error_description(error.getDescription()).build();
+				.op_error_description(error.getDescription())
+				.gateway_name(configItems.retrieveGatewayName())
+				.microservice_name(msName)
+				.build();
 
 		final String logMessage = StringUtility.toJSON(logDTO);
 		log.error(logMessage);
