@@ -19,48 +19,48 @@ public final class Constants {
 		/**
 		 * Base path.
 		 */
-		public static final String BASE = "it.sanita.config";
+		public static final String BASE = "it.finanze.sanita.fse2.ms.gtw.config";
 
 		/**
 		 * Controller path.
 		 */
-		public static final String CONTROLLER = "it.sanita.config.controller";
+		public static final String CONTROLLER = "it.finanze.sanita.fse2.ms.gtw.config.controller";
 
 		/**
 		 * Service path.
 		 */
-		public static final String SERVICE = "it.sanita.config.service";
+		public static final String SERVICE = "it.finanze.sanita.fse2.ms.gtw.config.service";
 
 		/**
 		 * Configuration path.
 		 */
-		public static final String CONFIG = "it.sanita.config.config";
+		public static final String CONFIG = "it.finanze.sanita.fse2.ms.gtw.config.config";
 		
 		/**
 		 * Configuration mongo path.
 		 */
-		public static final String CONFIG_MONGO = "it.sanita.config.mongo";
+		public static final String CONFIG_MONGO = "it.finanze.sanita.fse2.ms.gtw.config.mongo";
 		
 		/**
 		 * Configuration mongo repository path.
 		 */
-		public static final String REPOSITORY_MONGO = "it.sanita.config.repository";
+		public static final String REPOSITORY_MONGO = "it.finanze.sanita.fse2.ms.gtw.config.repository";
 
-		public static final class Collections {
-
-			public static final String CONFIG_DATA = "config_data";
-
-			private Collections() {
-
-			}
-		}
-		
 		private ComponentScan() {
 			//This method is intentionally left blank.
 		}
 
 	}
  
+	public static final class Collections {
+
+		public static final String CONFIG_DATA = "config_data";
+
+		private Collections() {
+
+		}
+	}
+	
 	public static final class Profile {
 
 		/**

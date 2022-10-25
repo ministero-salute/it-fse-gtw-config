@@ -19,8 +19,8 @@ public class CollectionNaming {
     @Bean("configDataBean")
     public String getConfigDataCollection() {
         if (profileUtility.isTestProfile()) {
-            return Constants.Profile.TEST_PREFIX + Constants.ComponentScan.Collections.CONFIG_DATA;
+            return Constants.Profile.TEST_PREFIX + Constants.Collections.CONFIG_DATA;
         }
-        return Constants.ComponentScan.Collections.CONFIG_DATA;
+        return Constants.Collections.CONFIG_DATA;
     }
 }
