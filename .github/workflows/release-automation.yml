@@ -22,10 +22,10 @@ jobs:
         cache: maven
 
     - name: Build package it-fse-gtw-config-ms with Maven
-      run: mvn --batch-mode --update-snapshots package -DskipTests=true 
+      run: mvn --batch-mode --update-snapshots package -DskipTests=true
 
     - name: Staging packages and source-code
-      run: mkdir staging && cp ./**/it-fse-gtw-*.jar staging
+      run: mkdir staging && cp ./target/*.jar staging
 
     - name: Create release by ncipollo
       uses: ncipollo/release-action@v1
