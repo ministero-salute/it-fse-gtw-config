@@ -16,8 +16,6 @@ import lombok.Setter;
 
 /**
  * Entity that handles configuration items.
- * 
- * @author Simone Lungarella
  */
 @Getter
 @Setter

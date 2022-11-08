@@ -31,8 +31,6 @@ import it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemType;
 
 /**
  * Controller interface that defines all accessible api to handle configuration items.
- * 
- * @author Simone Lungarella
  */
 @RequestMapping(path = "/v1")
 @Tag(name = "Gateway Configuration Items service", description = "Gateway Configuration Items service")

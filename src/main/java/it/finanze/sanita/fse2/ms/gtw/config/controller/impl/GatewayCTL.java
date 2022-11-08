@@ -1,3 +1,6 @@
+/*
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
 package it.finanze.sanita.fse2.ms.gtw.config.controller.impl;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,8 +17,6 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * Controller implementation that exposes all accessible api to handle configuration of a gateway.
- * 
- * @author Simone Lungarella
  */
 @Slf4j
 @RestController

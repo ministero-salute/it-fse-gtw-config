@@ -5,8 +5,6 @@ package it.finanze.sanita.fse2.ms.gtw.config.exceptions;
 
 /**
  * Exception that handles validation errors.
- * 
- * @author Simone Lungarella
  */
 public class ValidationException extends RuntimeException {
 

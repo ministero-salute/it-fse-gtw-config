@@ -24,9 +24,6 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import it.finanze.sanita.fse2.ms.gtw.config.config.Constants;
 
 /**
- * 
- * @author vincenzoingenito
- *
  *	Configuration for MongoDB.
  */
 @Configuration

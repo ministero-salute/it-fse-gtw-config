@@ -4,9 +4,6 @@
 package it.finanze.sanita.fse2.ms.gtw.config.config;
 
 /**
- * 
- * @author vincenzoingenito
- *
  * Constants application.
  */
 public final class Constants {

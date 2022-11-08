@@ -25,8 +25,6 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * Data access object for configuration items.
- * 
- * @author Simone Lungarella
  */
 @Slf4j
 @Repository

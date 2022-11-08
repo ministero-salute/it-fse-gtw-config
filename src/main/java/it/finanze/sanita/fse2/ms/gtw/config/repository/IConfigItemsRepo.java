@@ -10,8 +10,6 @@ import it.finanze.sanita.fse2.ms.gtw.config.repository.entity.ConfigItemETY;
 
 /**
  * Interface of configuration items repository.
- * 
- * @author Simone Lungarella
  */
 public interface IConfigItemsRepo {
     

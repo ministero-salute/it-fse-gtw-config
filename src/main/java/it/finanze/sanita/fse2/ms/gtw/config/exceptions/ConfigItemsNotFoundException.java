@@ -5,8 +5,6 @@ package it.finanze.sanita.fse2.ms.gtw.config.exceptions;
 
 /**
  * Exception thrown when a configuration item is not found in database.
- * 
- * @author Simone Lungarella
  */
 public class ConfigItemsNotFoundException extends RuntimeException {
 

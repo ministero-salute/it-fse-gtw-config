@@ -29,12 +29,7 @@ import it.finanze.sanita.fse2.ms.gtw.config.repository.entity.ConfigItemETY;
 import it.finanze.sanita.fse2.ms.gtw.config.service.IConfigItemsSRV;
 import it.finanze.sanita.fse2.ms.gtw.config.utility.StringUtility;
 import lombok.extern.slf4j.Slf4j;
-
-/**
- * Controller implementation to handle configuration items requests.
- * 
- * @author Simone Lungarella
- */
+ 
 @Slf4j
 @RestController
 public class ConfigItemsCTL extends AbstractCTL implements IConfigItemsCTL {

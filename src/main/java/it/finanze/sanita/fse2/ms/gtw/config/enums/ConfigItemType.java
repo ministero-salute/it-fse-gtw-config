@@ -7,8 +7,6 @@ import lombok.Getter;
 
 /**
  * Enum of configuration items categories.
- * 
- * @author Simone Lungarella
  */
 public enum ConfigItemType {
     

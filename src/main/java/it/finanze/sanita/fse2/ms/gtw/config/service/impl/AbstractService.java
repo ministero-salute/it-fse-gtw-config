@@ -8,7 +8,6 @@ import java.io.Serializable;
 import org.springframework.stereotype.Service;
 
 /**
- *
  *	Abstract service
  */
 @Service

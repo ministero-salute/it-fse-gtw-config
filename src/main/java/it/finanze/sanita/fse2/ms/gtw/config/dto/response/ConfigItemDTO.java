@@ -16,15 +16,18 @@ import lombok.Setter;
 
 /**
  * Data transfer object that organize the response.
- * 
- * @author Simone Lungarella
  */
 @Getter
 @Setter
 @NoArgsConstructor
 public class ConfigItemDTO extends ResponseDTO {
 
-    @ArraySchema(minItems = 0, maxItems = 10000, schema = @Schema(implementation = ConfigItemETY.class))
+    /**
+	 * Serial version uid.
+	 */
+	private static final long serialVersionUID = 8557935099846761267L;
+
+	@ArraySchema(minItems = 0, maxItems = 10000, schema = @Schema(implementation = ConfigItemETY.class))
     List<ConfigItemETY> configurationItems;
 
     @Size(min = 0, max = 10000)

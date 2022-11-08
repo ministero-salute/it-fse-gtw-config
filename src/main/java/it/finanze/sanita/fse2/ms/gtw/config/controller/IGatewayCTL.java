@@ -1,3 +1,6 @@
+/*
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
 package it.finanze.sanita.fse2.ms.gtw.config.controller;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,8 +22,6 @@ import it.finanze.sanita.fse2.ms.gtw.config.dto.response.WhoIsResponseDTO;
 
 /**
  * Controller interface that defines all accessible api to handle generic configuration of a gateway.
- * 
- * @author Simone Lungarella
  */
 @RequestMapping(path = "/v1")
 @Tag(name = "Gateway Configuration service", description = "Gateway Configuration service")

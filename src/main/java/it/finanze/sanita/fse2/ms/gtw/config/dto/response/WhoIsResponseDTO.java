@@ -1,3 +1,6 @@
+/*
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
 package it.finanze.sanita.fse2.ms.gtw.config.dto.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -7,8 +10,6 @@ import lombok.NoArgsConstructor;
 
 /**
  * DTO that represents the response of the who-is api.
- * 
- * @author Simone Lungarella
  */
 @Getter
 @NoArgsConstructor

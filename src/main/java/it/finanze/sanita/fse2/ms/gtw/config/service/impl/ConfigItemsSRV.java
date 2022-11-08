@@ -21,8 +21,6 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * Service implementation for configuration items.
- * 
- * @author Simone Lungarella
  */
 @Slf4j
 @Service
