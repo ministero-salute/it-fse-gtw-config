@@ -1,3 +1,6 @@
+/*
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
 package it.finanze.sanita.fse2.ms.gtw.config;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -46,7 +49,6 @@ import it.finanze.sanita.fse2.ms.gtw.config.service.IConfigItemsSRV;
 /**
  * Test class for configuration items API.
  * 
- * @author Simone Lungarella
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ComponentScan(basePackages = {Constants.ComponentScan.BASE})
