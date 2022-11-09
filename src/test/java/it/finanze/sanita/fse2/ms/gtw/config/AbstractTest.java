@@ -1,3 +1,6 @@
+/*
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
 package it.finanze.sanita.fse2.ms.gtw.config;
 
 import java.util.Map;
@@ -30,7 +33,6 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * Abstract class for testing classes.
  * 
- * @author Simone Lungarella
  */
 @Slf4j
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
