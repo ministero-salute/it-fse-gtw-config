@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemType;
+import it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemTypeEnum;
 import it.finanze.sanita.fse2.ms.gtw.config.exceptions.BusinessException;
 import it.finanze.sanita.fse2.ms.gtw.config.exceptions.ConfigItemsNotFoundException;
 import it.finanze.sanita.fse2.ms.gtw.config.repository.IConfigItemsRepo;
@@ -40,7 +40,7 @@ public class ConfigItemsSRV extends AbstractService implements IConfigItemsSRV {
     @Override
     public void saveConfigurationItems(final List<ConfigItemETY> items) {
         try {
-            final List<ConfigItemETY> existingItems = configItemsRepo.getConfigurationItems(ConfigItemType.valueOf(items.get(0).getKey()));
+            final List<ConfigItemETY> existingItems = configItemsRepo.getConfigurationItems(ConfigItemTypeEnum.valueOf(items.get(0).getKey()));
             if (CollectionUtils.isEmpty(existingItems)) {
                 configItemsRepo.save(items);
             } else {
@@ -53,7 +53,7 @@ public class ConfigItemsSRV extends AbstractService implements IConfigItemsSRV {
     }
 
     @Override
-    public List<ConfigItemETY> getConfigurationItems(final ConfigItemType type) {
+    public List<ConfigItemETY> getConfigurationItems(final ConfigItemTypeEnum type) {
         try {
             final List<ConfigItemETY> items = configItemsRepo.getConfigurationItems(type);
             if (CollectionUtils.isEmpty(items)) {
@@ -70,7 +70,7 @@ public class ConfigItemsSRV extends AbstractService implements IConfigItemsSRV {
     }
 
     @Override
-    public void updateItem(final ConfigItemType type, final String itemKey, final String newValue) {
+    public void updateItem(final ConfigItemTypeEnum type, final String itemKey, final String newValue) {
         try {
             final boolean isUpdated = configItemsRepo.update(type.getName(), itemKey, newValue);
             if (!isUpdated) {
@@ -121,5 +121,17 @@ public class ConfigItemsSRV extends AbstractService implements IConfigItemsSRV {
     public String retrieveGatewayName() {
         return gatewayName;
     }
+
+	@Override
+	public String getConfigurationItemsValue(final ConfigItemTypeEnum type, final String props) {
+		String out = "";
+		try {
+			out = configItemsRepo.getPropsValue(type, props);
+		} catch(Exception ex) {
+			log.error("Error while get configuration items value : " , ex);
+			throw new BusinessException("Error while get configuration items value : " , ex);
+		}
+		return out;
+	}
     
 }

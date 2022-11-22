@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import it.finanze.sanita.fse2.ms.gtw.config.controller.IConfigItemsCTL;
 import it.finanze.sanita.fse2.ms.gtw.config.dto.response.ConfigItemDTO;
 import it.finanze.sanita.fse2.ms.gtw.config.dto.response.ResponseDTO;
-import it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemType;
+import it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemTypeEnum;
 import it.finanze.sanita.fse2.ms.gtw.config.enums.ErrorLogEnum;
 import it.finanze.sanita.fse2.ms.gtw.config.enums.OperationLogEnum;
 import it.finanze.sanita.fse2.ms.gtw.config.enums.ResultLogEnum;
@@ -46,7 +46,7 @@ public class ConfigItemsCTL extends AbstractCTL implements IConfigItemsCTL {
     private LoggerHelper logger;
 
     @Override
-    public ResponseEntity<ConfigItemDTO> getConfigurationItems(final ConfigItemType type, final HttpServletRequest request) {
+    public ResponseEntity<ConfigItemDTO> getConfigurationItems(final ConfigItemTypeEnum type, final HttpServletRequest request) {
         
         log.debug("Searching for configuration items of type {}", type);
         
@@ -55,7 +55,7 @@ public class ConfigItemsCTL extends AbstractCTL implements IConfigItemsCTL {
     }
 
     @Override
-    public ResponseEntity<ResponseDTO> saveConfigurationItems(final ConfigItemType type, final Map<String, String> configItems, final HttpServletRequest request) {
+    public ResponseEntity<ResponseDTO> saveConfigurationItems(final ConfigItemTypeEnum type, final Map<String, String> configItems, final HttpServletRequest request) {
         
         final Date startingDate = new Date();
         try {
@@ -78,7 +78,7 @@ public class ConfigItemsCTL extends AbstractCTL implements IConfigItemsCTL {
     }
 
     @Override
-    public ResponseEntity<ResponseDTO> deleteConfigurationItems(final ConfigItemType type, final String itemKey, final HttpServletRequest request) {
+    public ResponseEntity<ResponseDTO> deleteConfigurationItems(final ConfigItemTypeEnum type, final String itemKey, final HttpServletRequest request) {
         
         final Date startingDate = new Date();
         try {
@@ -99,7 +99,7 @@ public class ConfigItemsCTL extends AbstractCTL implements IConfigItemsCTL {
     }
 
     @Override
-    public ResponseEntity<ResponseDTO> updateConfigurationItems(final ConfigItemType type, final String itemKey, final String value, final HttpServletRequest request) {
+    public ResponseEntity<ResponseDTO> updateConfigurationItems(final ConfigItemTypeEnum type, final String itemKey, final String value, final HttpServletRequest request) {
         
         final Date startingDate = new Date();
         log.debug("Updating configuration items of type {}", type);
@@ -112,6 +112,14 @@ public class ConfigItemsCTL extends AbstractCTL implements IConfigItemsCTL {
             throw e;
         }
         return new ResponseEntity<>(new ResponseDTO(getLogTraceInfo()), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<String> getValueOfSpecificConfigurationItems(ConfigItemTypeEnum type, String props,HttpServletRequest request) {
+    	log.debug("Searching for configuration items of type {}", type);
+
+    	String configItems = configItemsSRV.getConfigurationItemsValue(type, props);
+    	return new ResponseEntity<>(configItems, HttpStatus.OK);
     }
     
 }

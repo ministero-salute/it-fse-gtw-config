@@ -27,7 +27,7 @@ import it.finanze.sanita.fse2.ms.gtw.config.config.Constants;
 import it.finanze.sanita.fse2.ms.gtw.config.dto.response.ConfigItemDTO;
 import it.finanze.sanita.fse2.ms.gtw.config.dto.response.ResponseDTO;
 import it.finanze.sanita.fse2.ms.gtw.config.dto.response.WhoIsResponseDTO;
-import it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemType;
+import it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemTypeEnum;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -54,7 +54,7 @@ abstract class AbstractTest {
     @Autowired
     private ServletWebServerApplicationContext webServerAppCtxt;
 
-    protected ConfigItemDTO getConfigurationItems(final ConfigItemType type) {
+    protected ConfigItemDTO getConfigurationItems(final ConfigItemTypeEnum type) {
 
         final String url = getBaseURL() + "/config-items";
 		final UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
@@ -69,7 +69,7 @@ abstract class AbstractTest {
         return restTemplate.getForEntity(url, WhoIsResponseDTO.class);
     }
 
-    protected ResponseDTO saveConfigurationItems(final ConfigItemType type, final Map<String, String> configItems) {
+    protected ResponseDTO saveConfigurationItems(final ConfigItemTypeEnum type, final Map<String, String> configItems) {
 
         try {
             final String url = getBaseURL() + "/config-items";
@@ -96,7 +96,7 @@ abstract class AbstractTest {
         }
     }
 
-    protected void deleteConfigurationItems(final ConfigItemType type, final String keyItem) {
+    protected void deleteConfigurationItems(final ConfigItemTypeEnum type, final String keyItem) {
 
         try {
             final String url = getBaseURL() + "/config-items";
@@ -112,7 +112,7 @@ abstract class AbstractTest {
         }
     }
 
-    protected void updateConfigurationItems(final ConfigItemType type, final String itemKey, final String value) {
+    protected void updateConfigurationItems(final ConfigItemTypeEnum type, final String itemKey, final String value) {
 
         try {
             final String url = getBaseURL() + "/config-items";

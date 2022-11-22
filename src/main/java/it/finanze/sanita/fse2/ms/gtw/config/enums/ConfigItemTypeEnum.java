@@ -8,15 +8,16 @@ import lombok.Getter;
 /**
  * Enum of configuration items categories.
  */
-public enum ConfigItemType {
+public enum ConfigItemTypeEnum {
     
     GENERIC("GENERIC"),
-    GARBAGE("GARBAGE");
+    GARBAGE("GARBAGE"),
+    STATUS_MANAGER("STATUS_MANAGER");
 
     @Getter
     private String name;
 
-    ConfigItemType(final String inName) {
+    ConfigItemTypeEnum(final String inName) {
         name = inName;
     }
 }

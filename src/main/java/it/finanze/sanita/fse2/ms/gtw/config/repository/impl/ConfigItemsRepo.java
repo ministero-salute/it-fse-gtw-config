@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 
-import it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemType;
+import it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemTypeEnum;
 import it.finanze.sanita.fse2.ms.gtw.config.exceptions.BusinessException;
 import it.finanze.sanita.fse2.ms.gtw.config.repository.IConfigItemsRepo;
 import it.finanze.sanita.fse2.ms.gtw.config.repository.entity.ConfigItemETY;
@@ -69,12 +69,12 @@ public class ConfigItemsRepo extends AbstractMongoRepository<ConfigItemETY, Stri
     }
 
     @Override
-    public List<ConfigItemETY> getConfigurationItems(final ConfigItemType type) {
+    public List<ConfigItemETY> getConfigurationItems(final ConfigItemTypeEnum type) {
         
         List<ConfigItemETY> configurationItems = new ArrayList<>();
         try {
             Query query = new Query();
-            query.addCriteria(Criteria.where("key").in(type, ConfigItemType.GENERIC));
+            query.addCriteria(Criteria.where("key").in(type, ConfigItemTypeEnum.GENERIC));
            
             configurationItems = mongoTemplate.find(query, ConfigItemETY.class);
         } catch (final Exception e) {
@@ -138,4 +138,22 @@ public class ConfigItemsRepo extends AbstractMongoRepository<ConfigItemETY, Stri
         return isDeleted;
     }
     
+    @Override
+    public String getPropsValue(final ConfigItemTypeEnum type, final String props) {
+    	String configurationItems = "";
+        try {
+            Query query = new Query();
+            query.fields().include("config_items."+props);
+            query.addCriteria(Criteria.where("key").in(type, ConfigItemTypeEnum.GENERIC));
+           
+            ConfigItemETY cfg = mongoTemplate.findOne(query, ConfigItemETY.class);
+            if(cfg!=null && cfg.getItems()!=null && cfg.getItems().get(props)!=null) {
+            	configurationItems = cfg.getItems().get(props);
+            }
+        } catch (final Exception e) {
+            log.error("Error while retrieving all configuration items", e);
+            throw new BusinessException("Error while retrieving all configuration items", e);
+        }
+        return configurationItems;
+    }
 }

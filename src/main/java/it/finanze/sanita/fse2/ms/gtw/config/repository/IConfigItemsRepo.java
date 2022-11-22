@@ -5,7 +5,7 @@ package it.finanze.sanita.fse2.ms.gtw.config.repository;
 
 import java.util.List;
 
-import it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemType;
+import it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemTypeEnum;
 import it.finanze.sanita.fse2.ms.gtw.config.repository.entity.ConfigItemETY;
 
 /**
@@ -26,7 +26,7 @@ public interface IConfigItemsRepo {
      * @param type Type of configuration items.
      * @return All existing configuration items.
      */
-    List<ConfigItemETY> getConfigurationItems(ConfigItemType type);
+    List<ConfigItemETY> getConfigurationItems(ConfigItemTypeEnum type);
 
     /**
      * Updates a configuration item.
@@ -56,4 +56,6 @@ public interface IConfigItemsRepo {
      * @return {@code true} if the configuration items are deleted correctly, {@code false} otherwise.
      */
     boolean deleteAll(String key);
+    
+    String getPropsValue(ConfigItemTypeEnum type, String props);
 }

@@ -5,7 +5,7 @@ package it.finanze.sanita.fse2.ms.gtw.config.service;
 
 import java.util.List;
 
-import it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemType;
+import it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemTypeEnum;
 import it.finanze.sanita.fse2.ms.gtw.config.exceptions.ConfigItemsNotFoundException;
 import it.finanze.sanita.fse2.ms.gtw.config.repository.entity.ConfigItemETY;
 
@@ -27,8 +27,8 @@ public interface IConfigItemsSRV {
      * @param type Type of configuration items to retrieve.
      * @return All existing configuration items.
      */
-    List<ConfigItemETY> getConfigurationItems(ConfigItemType type);
-
+    List<ConfigItemETY> getConfigurationItems(ConfigItemTypeEnum type);
+    
     /**
      * Updates a configuration item.
      * 
@@ -36,7 +36,7 @@ public interface IConfigItemsSRV {
      * @param itemKey Key of configuration item to update.
      * @param newValue Value to set.
      */
-    void updateItem(ConfigItemType type, String itemKey, String newValue);
+    void updateItem(ConfigItemTypeEnum type, String itemKey, String newValue);
 
     /**
      * Deletes a configuration item identified by its {@code key}.
@@ -61,4 +61,6 @@ public interface IConfigItemsSRV {
      * @return Gateway name.
      */
     String retrieveGatewayName();
+    
+    String getConfigurationItemsValue(ConfigItemTypeEnum type, String props);
 }

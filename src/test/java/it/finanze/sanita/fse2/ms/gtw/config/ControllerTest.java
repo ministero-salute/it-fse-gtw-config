@@ -42,7 +42,7 @@ import com.mongodb.MongoException;
 import it.finanze.sanita.fse2.ms.gtw.config.config.Constants;
 import it.finanze.sanita.fse2.ms.gtw.config.dto.response.ConfigItemDTO;
 import it.finanze.sanita.fse2.ms.gtw.config.dto.response.WhoIsResponseDTO;
-import it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemType;
+import it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemTypeEnum;
 import it.finanze.sanita.fse2.ms.gtw.config.repository.entity.ConfigItemETY;
 import it.finanze.sanita.fse2.ms.gtw.config.service.IConfigItemsSRV;
 
@@ -60,7 +60,7 @@ class ControllerTest extends AbstractTest {
 
     @BeforeEach
     void setup() {
-        for (ConfigItemType type : ConfigItemType.values()) {
+        for (ConfigItemTypeEnum type : ConfigItemTypeEnum.values()) {
             configItemsSRV.deleteItemsByKeys(type.getName());
         }
     }
@@ -78,15 +78,15 @@ class ControllerTest extends AbstractTest {
             configItems.put(UUID.randomUUID().toString().substring(24), "Property " + i);
         }
 
-        items.add(new ConfigItemETY(ConfigItemType.GENERIC.getName(), configItems));
+        items.add(new ConfigItemETY(ConfigItemTypeEnum.GENERIC.getName(), configItems));
         configItemsSRV.saveConfigurationItems(items);
 
         assumeTrue(mongoTemplate.findAll(ConfigItemETY.class).size() > 0, "Content must be present in database");
         // Starting test
 
-        final ConfigItemDTO response = getConfigurationItems(ConfigItemType.GENERIC);
+        final ConfigItemDTO response = getConfigurationItems(ConfigItemTypeEnum.GENERIC);
         assertEquals(1, response.getConfigurationItems().size(), "Only one configuration item bulk should have been returned");
-        assertEquals(ConfigItemType.GENERIC.getName(), response.getConfigurationItems().get(0).getKey(), "Items returned should refer to the same configuration type");
+        assertEquals(ConfigItemTypeEnum.GENERIC.getName(), response.getConfigurationItems().get(0).getKey(), "Items returned should refer to the same configuration type");
         assertEquals(numItems, response.getConfigurationItems().get(0).getItems().size(), "All items should have been present in collection");
     }
 
@@ -102,7 +102,7 @@ class ControllerTest extends AbstractTest {
         }
 
         // Starting test
-        saveConfigurationItems(ConfigItemType.GENERIC, configItems);
+        saveConfigurationItems(ConfigItemTypeEnum.GENERIC, configItems);
         int insertedItems = mongoTemplate.findAll(ConfigItemETY.class).stream().mapToInt(item -> item.getItems().size()).sum();
         assertEquals(numItems, insertedItems, "Every item should have been saved");
     
@@ -113,7 +113,7 @@ class ControllerTest extends AbstractTest {
         }
 
         // Starting test
-        saveConfigurationItems(ConfigItemType.GENERIC, configItems);
+        saveConfigurationItems(ConfigItemTypeEnum.GENERIC, configItems);
         insertedItems = mongoTemplate.findAll(ConfigItemETY.class).stream().mapToInt(item -> item.getItems().size()).sum();
         assertEquals(numItems*2, insertedItems, "Every item should have been saved also at second execution");
     }
@@ -131,19 +131,19 @@ class ControllerTest extends AbstractTest {
             configItems.put(randomProperty, "Property " + i);
         }
 
-        saveConfigurationItems(ConfigItemType.GENERIC, configItems);
+        saveConfigurationItems(ConfigItemTypeEnum.GENERIC, configItems);
         assumeTrue(!CollectionUtils.isEmpty(mongoTemplate.findAll(ConfigItemETY.class)), "Entity should exist to execute deletion");
         
         // Starting test
-        deleteConfigurationItems(ConfigItemType.GENERIC, null);
+        deleteConfigurationItems(ConfigItemTypeEnum.GENERIC, null);
         assertTrue(CollectionUtils.isEmpty(mongoTemplate.findAll(ConfigItemETY.class)), "All configuration items should have been deleted");
     
         // Preparing data again
-        saveConfigurationItems(ConfigItemType.GENERIC, configItems);
+        saveConfigurationItems(ConfigItemTypeEnum.GENERIC, configItems);
         assumeTrue(!CollectionUtils.isEmpty(mongoTemplate.findAll(ConfigItemETY.class)), "Entity should exist to execute deletion");
         
         // Testing single deletion
-        deleteConfigurationItems(ConfigItemType.GENERIC, randomProperty);
+        deleteConfigurationItems(ConfigItemTypeEnum.GENERIC, randomProperty);
         final int insertedItems = mongoTemplate.findAll(ConfigItemETY.class).stream().mapToInt(item -> item.getItems().size()).sum();
 
         assertEquals(numItems, insertedItems + 1, "Only one property should have been deleted");
@@ -162,13 +162,13 @@ class ControllerTest extends AbstractTest {
             configItems.put(randomProperty, "Property " + i);
         }
 
-        saveConfigurationItems(ConfigItemType.GENERIC, configItems);
+        saveConfigurationItems(ConfigItemTypeEnum.GENERIC, configItems);
         assumeTrue(!CollectionUtils.isEmpty(mongoTemplate.findAll(ConfigItemETY.class)), "Entity should exist to execute deletion");
 
         final String testValue = "TEST_VALUE";
         
         // Starting test
-        updateConfigurationItems(ConfigItemType.GENERIC, randomProperty, testValue);
+        updateConfigurationItems(ConfigItemTypeEnum.GENERIC, randomProperty, testValue);
 
         Map<String, String> items = mongoTemplate.findAll(ConfigItemETY.class).get(0).getItems();
         assertEquals(testValue, items.get(randomProperty), "The value should have been updated correctly");
@@ -180,10 +180,10 @@ class ControllerTest extends AbstractTest {
         assumeTrue(CollectionUtils.isEmpty(mongoTemplate.findAll(ConfigItemETY.class)), "Db should have no configuration items");
         
         assertAll(
-            () -> assertThrows(HttpClientErrorException.BadRequest.class, () -> saveConfigurationItems(ConfigItemType.GARBAGE, new HashMap<>())),
-            () -> assertThrows(HttpClientErrorException.NotFound.class, () -> getConfigurationItems(ConfigItemType.GARBAGE)),
-            () -> assertThrows(HttpClientErrorException.NotFound.class, () -> deleteConfigurationItems(ConfigItemType.GARBAGE, null)),
-            () -> assertThrows(HttpClientErrorException.NotFound.class, () -> updateConfigurationItems(ConfigItemType.GARBAGE, UUID.randomUUID().toString(), UUID.randomUUID().toString()))
+            () -> assertThrows(HttpClientErrorException.BadRequest.class, () -> saveConfigurationItems(ConfigItemTypeEnum.GARBAGE, new HashMap<>())),
+            () -> assertThrows(HttpClientErrorException.NotFound.class, () -> getConfigurationItems(ConfigItemTypeEnum.GARBAGE)),
+            () -> assertThrows(HttpClientErrorException.NotFound.class, () -> deleteConfigurationItems(ConfigItemTypeEnum.GARBAGE, null)),
+            () -> assertThrows(HttpClientErrorException.NotFound.class, () -> updateConfigurationItems(ConfigItemTypeEnum.GARBAGE, UUID.randomUUID().toString(), UUID.randomUUID().toString()))
         );
     }
 
@@ -191,7 +191,7 @@ class ControllerTest extends AbstractTest {
     @DisplayName("Get configuration items error test")
     void getConfigurationItemsErrorTest() {
         Mockito.doThrow(new MongoException("Mongo error")).when(mongoTemplate).find(any(Query.class), eq(ConfigItemETY.class));
-        assertThrows(HttpServerErrorException.InternalServerError.class, () -> getConfigurationItems(ConfigItemType.GENERIC));
+        assertThrows(HttpServerErrorException.InternalServerError.class, () -> getConfigurationItems(ConfigItemTypeEnum.GENERIC));
     }
 
     @SuppressWarnings("unchecked")
@@ -208,7 +208,7 @@ class ControllerTest extends AbstractTest {
 
         Mockito.doThrow(new MongoException("Mongo error")).when(mongoTemplate).insertAll(any(Collection.class));
         // Starting test
-        assertThrows(HttpServerErrorException.InternalServerError.class, () -> saveConfigurationItems(ConfigItemType.GENERIC, configItems));
+        assertThrows(HttpServerErrorException.InternalServerError.class, () -> saveConfigurationItems(ConfigItemTypeEnum.GENERIC, configItems));
     }
 
     @DisplayName("Delete configuration items error test")
@@ -224,16 +224,16 @@ class ControllerTest extends AbstractTest {
             configItems.put(randomProperty, "Property " + i);
         }
 
-        saveConfigurationItems(ConfigItemType.GENERIC, configItems);
+        saveConfigurationItems(ConfigItemTypeEnum.GENERIC, configItems);
         assumeTrue(!CollectionUtils.isEmpty(mongoTemplate.findAll(ConfigItemETY.class)), "Entity should exist to execute deletion");
 
         Mockito.doThrow(new MongoException("Mongo error")).when(mongoTemplate).remove(any(Query.class), eq(ConfigItemETY.class));
         // Starting test
-        assertThrows(HttpServerErrorException.InternalServerError.class, () -> deleteConfigurationItems(ConfigItemType.GENERIC, null));
+        assertThrows(HttpServerErrorException.InternalServerError.class, () -> deleteConfigurationItems(ConfigItemTypeEnum.GENERIC, null));
 
         Mockito.doThrow(new MongoException("Mongo error")).when(mongoTemplate).updateMulti(any(Query.class), any(UpdateDefinition.class), eq(ConfigItemETY.class));
         // Starting test
-        assertThrows(HttpServerErrorException.InternalServerError.class, () -> deleteConfigurationItems(ConfigItemType.GENERIC, "genericKey"));
+        assertThrows(HttpServerErrorException.InternalServerError.class, () -> deleteConfigurationItems(ConfigItemTypeEnum.GENERIC, "genericKey"));
 
     }
 
@@ -250,7 +250,7 @@ class ControllerTest extends AbstractTest {
             configItems.put(randomProperty, "Property " + i);
         }
 
-        saveConfigurationItems(ConfigItemType.GENERIC, configItems);
+        saveConfigurationItems(ConfigItemTypeEnum.GENERIC, configItems);
         assumeTrue(!CollectionUtils.isEmpty(mongoTemplate.findAll(ConfigItemETY.class)), "Entity should exist to execute deletion");
 
         final String testValue = "TEST_VALUE";
@@ -258,7 +258,7 @@ class ControllerTest extends AbstractTest {
         // Starting test
         Mockito.doThrow(new MongoException("Mongo error")).when(mongoTemplate).updateMulti(any(Query.class), any(UpdateDefinition.class), eq(ConfigItemETY.class));
         String finalRandomProperty = randomProperty;
-        assertThrows(HttpServerErrorException.InternalServerError.class, () -> updateConfigurationItems(ConfigItemType.GENERIC, finalRandomProperty, testValue));
+        assertThrows(HttpServerErrorException.InternalServerError.class, () -> updateConfigurationItems(ConfigItemTypeEnum.GENERIC, finalRandomProperty, testValue));
     }
 
     @Value("${gateway.full-qualified-name}")

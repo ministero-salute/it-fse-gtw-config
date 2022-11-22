@@ -19,16 +19,6 @@ public final class Constants {
 		public static final String BASE = "it.finanze.sanita.fse2.ms.gtw.config";
 
 		/**
-		 * Controller path.
-		 */
-		public static final String CONTROLLER = "it.finanze.sanita.fse2.ms.gtw.config.controller";
-
-		/**
-		 * Service path.
-		 */
-		public static final String SERVICE = "it.finanze.sanita.fse2.ms.gtw.config.service";
-
-		/**
 		 * Configuration path.
 		 */
 		public static final String CONFIG = "it.finanze.sanita.fse2.ms.gtw.config.config";
@@ -38,10 +28,6 @@ public final class Constants {
 		 */
 		public static final String CONFIG_MONGO = "it.finanze.sanita.fse2.ms.gtw.config.mongo";
 		
-		/**
-		 * Configuration mongo repository path.
-		 */
-		public static final String REPOSITORY_MONGO = "it.finanze.sanita.fse2.ms.gtw.config.repository";
 
 		private ComponentScan() {
 			//This method is intentionally left blank.
