@@ -27,9 +27,6 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = {ConfigItemsNotFoundException.class})
     protected ResponseEntity<ErrorResponseDTO> handleItemsNotFoundException(final ConfigItemsNotFoundException ex, final WebRequest request) {
-    	
-        log.error("Error, configuration items not found");
-        
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PROBLEM_JSON);
         
@@ -39,7 +36,7 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = {BusinessException.class})
     protected ResponseEntity<ErrorResponseDTO> handleGenericException(final BusinessException ex, final WebRequest request) {
     	
-        log.error("Internal server error.");
+        log.error("Internal server error." , ex);
         
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PROBLEM_JSON);
@@ -50,8 +47,6 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = {ValidationException.class})
     protected ResponseEntity<ErrorResponseDTO> handleValidationException(final ValidationException ex, final WebRequest request) {
     	
-        log.error("Parameters invalid or missing.");
-        
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PROBLEM_JSON);
         
