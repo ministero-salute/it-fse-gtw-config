@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import it.finanze.sanita.fse2.ms.gtw.config.dto.response.ErrorResponseDTO;
 import it.finanze.sanita.fse2.ms.gtw.config.exceptions.BusinessException;
-import it.finanze.sanita.fse2.ms.gtw.config.exceptions.ConfigItemsNotFoundException;
+import it.finanze.sanita.fse2.ms.gtw.config.exceptions.NotFoundException;
 import it.finanze.sanita.fse2.ms.gtw.config.exceptions.ValidationException;
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,8 +25,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(value = {ConfigItemsNotFoundException.class})
-    protected ResponseEntity<ErrorResponseDTO> handleItemsNotFoundException(final ConfigItemsNotFoundException ex, final WebRequest request) {
+    @ExceptionHandler(value = {NotFoundException.class})
+    protected ResponseEntity<ErrorResponseDTO> handleItemsNotFoundException(final NotFoundException ex, final WebRequest request) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PROBLEM_JSON);
         

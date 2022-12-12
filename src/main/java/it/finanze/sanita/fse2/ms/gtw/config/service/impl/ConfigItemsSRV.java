@@ -12,7 +12,7 @@ import org.springframework.util.CollectionUtils;
 
 import it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemTypeEnum;
 import it.finanze.sanita.fse2.ms.gtw.config.exceptions.BusinessException;
-import it.finanze.sanita.fse2.ms.gtw.config.exceptions.ConfigItemsNotFoundException;
+import it.finanze.sanita.fse2.ms.gtw.config.exceptions.NotFoundException;
 import it.finanze.sanita.fse2.ms.gtw.config.repository.IConfigItemsRepo;
 import it.finanze.sanita.fse2.ms.gtw.config.repository.entity.ConfigItemETY;
 import it.finanze.sanita.fse2.ms.gtw.config.service.IConfigItemsSRV;
@@ -57,11 +57,11 @@ public class ConfigItemsSRV extends AbstractService implements IConfigItemsSRV {
         try {
             final List<ConfigItemETY> items = configItemsRepo.getConfigurationItems(type);
             if (CollectionUtils.isEmpty(items)) {
-                throw new ConfigItemsNotFoundException("No configuration items exists in database.");
+                throw new NotFoundException("No configuration items exists in database.");
             } else {
                 return items;
             }
-        } catch (final ConfigItemsNotFoundException c) {
+        } catch (final NotFoundException c) {
             throw c;
         } catch (final Exception e) {
             log.error("Error while retrieving configuration items", e);
@@ -74,9 +74,9 @@ public class ConfigItemsSRV extends AbstractService implements IConfigItemsSRV {
         try {
             final boolean isUpdated = configItemsRepo.update(type.getName(), itemKey, newValue);
             if (!isUpdated) {
-                throw new ConfigItemsNotFoundException(String.format("Item of class %s and with key %s not found.", type, itemKey));
+                throw new NotFoundException(String.format("Item of class %s and with key %s not found.", type, itemKey));
             }
-        } catch (final ConfigItemsNotFoundException c) {
+        } catch (final NotFoundException c) {
             throw c;
         } catch (final Exception e) {
             log.error(String.format("Error while updating configuration item with key: %s", itemKey), e);
@@ -97,9 +97,9 @@ public class ConfigItemsSRV extends AbstractService implements IConfigItemsSRV {
                 isDeleted = configItemsRepo.deleteByKey(key, itemKey);
             }
             if (!isDeleted) {
-                throw new ConfigItemsNotFoundException(String.format("Item of class %s and with key %s not found.", key, itemKey));
+                throw new NotFoundException(String.format("Item of class %s and with key %s not found.", key, itemKey));
             }
-        } catch (final ConfigItemsNotFoundException c) {
+        } catch (final NotFoundException c) {
             throw c;
         } catch (final Exception e) {
             log.error(String.format("Error while deleting configuration item with key: %s", key), e);

@@ -6,7 +6,7 @@ package it.finanze.sanita.fse2.ms.gtw.config.service;
 import java.util.List;
 
 import it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemTypeEnum;
-import it.finanze.sanita.fse2.ms.gtw.config.exceptions.ConfigItemsNotFoundException;
+import it.finanze.sanita.fse2.ms.gtw.config.exceptions.NotFoundException;
 import it.finanze.sanita.fse2.ms.gtw.config.repository.entity.ConfigItemETY;
 
 /**
@@ -43,7 +43,7 @@ public interface IConfigItemsSRV {
      * 
      * @param key Key of configuration item to delete.
      * @param itemKey Key of specific configuration to delete.
-     * @throws ConfigItemsNotFoundException If the item to delete does not exist on database.
+     * @throws NotFoundException If the item to delete does not exist on database.
      */
     void deleteItemByKey(String key, String itemKey);
 

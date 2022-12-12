@@ -3,8 +3,6 @@
  */
 package it.finanze.sanita.fse2.ms.gtw.config.controller.impl;
 
-import java.io.Serializable;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import brave.Tracer;
@@ -13,12 +11,8 @@ import it.finanze.sanita.fse2.ms.gtw.config.dto.response.LogTraceInfoDTO;
 /**
  *	Abstract controller.
  */
-public abstract class AbstractCTL implements Serializable {
+public abstract class AbstractCTL {
 
-	/**
-	 * Serial version uid.
-	 */
-	private static final long serialVersionUID = 6251845150968743934L;
 	
 	@Autowired
 	private Tracer tracer;

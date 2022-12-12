@@ -34,10 +34,6 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 public class ConfigItemsCTL extends AbstractCTL implements IConfigItemsCTL {
 
-    /**
-	 * Serial version uid.
-	 */
-	private static final long serialVersionUID = 8139924873290539837L;
 	
 	@Autowired
     private IConfigItemsSRV configItemsSRV;

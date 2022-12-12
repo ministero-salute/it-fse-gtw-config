@@ -22,11 +22,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ConfigItemDTO extends ResponseDTO {
 
-    /**
-	 * Serial version uid.
-	 */
-	private static final long serialVersionUID = 8557935099846761267L;
-
 	@ArraySchema(minItems = 0, maxItems = 10000, schema = @Schema(implementation = ConfigItemETY.class))
     List<ConfigItemETY> configurationItems;
 

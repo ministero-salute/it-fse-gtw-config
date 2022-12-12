@@ -7,7 +7,6 @@ package it.finanze.sanita.fse2.ms.gtw.config.config;
 import java.util.regex.Pattern;
 
 import org.springdoc.core.customizers.OpenApiCustomiser;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -22,15 +21,12 @@ import io.swagger.v3.oas.models.servers.Server;
 @Configuration
 public class OpenApiCFG {
 
-	@Autowired
-	private CustomSwaggerCFG customOpenapi;
-
 	public OpenApiCFG() {
 		// Empty constructor.
 	}
 	
 	@Bean
-	public OpenApiCustomiser openApiCustomiser() {
+	public OpenApiCustomiser openApiCustomiser(final CustomSwaggerCFG customOpenapi) {
 
 
 		return openApi -> {

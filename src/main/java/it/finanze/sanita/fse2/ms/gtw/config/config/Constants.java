@@ -8,32 +8,6 @@ package it.finanze.sanita.fse2.ms.gtw.config.config;
  */
 public final class Constants {
 
-	/**
-	 *	Path scan.
-	 */
-	public static final class ComponentScan {
-
-		/**
-		 * Base path.
-		 */
-		public static final String BASE = "it.finanze.sanita.fse2.ms.gtw.config";
-
-		/**
-		 * Configuration path.
-		 */
-		public static final String CONFIG = "it.finanze.sanita.fse2.ms.gtw.config.config";
-		
-		/**
-		 * Configuration mongo path.
-		 */
-		public static final String CONFIG_MONGO = "it.finanze.sanita.fse2.ms.gtw.config.mongo";
-		
-
-		private ComponentScan() {
-			//This method is intentionally left blank.
-		}
-
-	}
  
 	public static final class Collections {
 

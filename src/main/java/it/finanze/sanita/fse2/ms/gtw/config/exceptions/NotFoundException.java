@@ -6,7 +6,7 @@ package it.finanze.sanita.fse2.ms.gtw.config.exceptions;
 /**
  * Exception thrown when a configuration item is not found in database.
  */
-public class ConfigItemsNotFoundException extends RuntimeException {
+public class NotFoundException extends RuntimeException {
 
 	/**
 	 * Serial version UID.
@@ -18,7 +18,7 @@ public class ConfigItemsNotFoundException extends RuntimeException {
 	 * 
 	 * @param msg Message to be shown.
 	 */
-	public ConfigItemsNotFoundException(final String msg) {
+	public NotFoundException(final String msg) {
 		super(msg);
 	}
 
@@ -28,7 +28,7 @@ public class ConfigItemsNotFoundException extends RuntimeException {
 	 * @param msg Message to be shown.
 	 * @param e   Exception to be shown.
 	 */
-	public ConfigItemsNotFoundException(final String msg, final Exception e) {
+	public NotFoundException(final String msg, final Exception e) {
 		super(msg, e);
 	}
 
@@ -37,7 +37,7 @@ public class ConfigItemsNotFoundException extends RuntimeException {
 	 * 
 	 * @param e Exception to be shown.
 	 */
-	public ConfigItemsNotFoundException(final Exception e) {
+	public NotFoundException(final Exception e) {
 		super(e);
 	}
 
