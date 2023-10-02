@@ -27,6 +27,10 @@ import org.springframework.data.mongodb.core.convert.DefaultMongoTypeMapper;
 import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
 import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
 
+import com.mongodb.ConnectionString;
+import com.mongodb.MongoClientSettings;
+import com.mongodb.client.MongoClients;
+
 /**
  *	Configuration for MongoDB.
  */
@@ -37,7 +41,11 @@ public class MongoDatabaseCFG {
 
     @Bean
     public MongoDatabaseFactory mongoDatabaseFactory(final MongoPropertiesCFG mongoPropertiesCFG){
-        return new SimpleMongoClientDatabaseFactory(mongoPropertiesCFG.getUri());
+    	  ConnectionString connectionString = new ConnectionString(mongoPropertiesCFG.getUri());
+          MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
+              .applyConnectionString(connectionString)
+              .build();
+          return new SimpleMongoClientDatabaseFactory(MongoClients.create(mongoClientSettings), mongoPropertiesCFG.getSchemaName());
     }
 
     @Bean
@@ -50,5 +58,7 @@ public class MongoDatabaseCFG {
         return new MongoTemplate(factory, converter);
     }
   
+    
+    
  
 }
