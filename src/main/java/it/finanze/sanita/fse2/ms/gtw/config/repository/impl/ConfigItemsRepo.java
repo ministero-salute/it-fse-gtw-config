@@ -82,7 +82,7 @@ public class ConfigItemsRepo extends AbstractMongoRepository<ConfigItemETY, Stri
         List<ConfigItemETY> configurationItems = new ArrayList<>();
         try {
             Query query = new Query();
-            query.addCriteria(Criteria.where("key").in(type, ConfigItemTypeEnum.GENERIC));
+            query.addCriteria(Criteria.where("key").is(type));
            
             configurationItems = mongoTemplate.find(query, ConfigItemETY.class);
         } catch (final Exception e) {
@@ -152,7 +152,7 @@ public class ConfigItemsRepo extends AbstractMongoRepository<ConfigItemETY, Stri
         try {
             Query query = new Query();
             query.fields().include("config_items."+props);
-            query.addCriteria(Criteria.where("key").in(type, ConfigItemTypeEnum.GENERIC));
+            query.addCriteria(Criteria.where("key").is(type));
            
             ConfigItemETY cfg = mongoTemplate.findOne(query, ConfigItemETY.class);
             if(cfg!=null && cfg.getItems()!=null && cfg.getItems().get(props)!=null) {
