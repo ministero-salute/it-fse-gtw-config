@@ -66,7 +66,7 @@ class ControllerTest extends AbstractTest {
     @BeforeEach
     void setup() {
         for (ConfigItemTypeEnum type : ConfigItemTypeEnum.values()) {
-            configItemsSRV.deleteItemsByKeys(type.getName());
+            configItemsSRV.deleteItemsByKeys(type.name());
         }
     }
 
@@ -83,7 +83,7 @@ class ControllerTest extends AbstractTest {
             configItems.put(UUID.randomUUID().toString().substring(24), "Property " + i);
         }
 
-        items.add(new ConfigItemETY(ConfigItemTypeEnum.GENERIC.getName(), configItems));
+        items.add(new ConfigItemETY(ConfigItemTypeEnum.GENERIC.name(), configItems));
         configItemsSRV.saveConfigurationItems(items);
 
         assumeTrue(mongoTemplate.findAll(ConfigItemETY.class).size() > 0, "Content must be present in database");
@@ -91,7 +91,7 @@ class ControllerTest extends AbstractTest {
 
         final ConfigItemDTO response = getConfigurationItems(ConfigItemTypeEnum.GENERIC);
         assertEquals(1, response.getConfigurationItems().size(), "Only one configuration item bulk should have been returned");
-        assertEquals(ConfigItemTypeEnum.GENERIC.getName(), response.getConfigurationItems().get(0).getKey(), "Items returned should refer to the same configuration type");
+        assertEquals(ConfigItemTypeEnum.GENERIC.name(), response.getConfigurationItems().get(0).getKey(), "Items returned should refer to the same configuration type");
         assertEquals(numItems, response.getConfigurationItems().get(0).getItems().size(), "All items should have been present in collection");
     }
 

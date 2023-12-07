@@ -67,7 +67,7 @@ public class ConfigItemsCTL extends AbstractCTL implements IConfigItemsCTL {
                 throw new ValidationException("Collection of configuration items cannot be empty.");
             } else {
                 log.info("Saving {} configuration items of type {}", configItems.size(), type);
-                final ConfigItemETY item = new ConfigItemETY(type.getName(), configItems);
+                final ConfigItemETY item = new ConfigItemETY(type.name(), configItems);
                 configItemsSRV.saveConfigurationItems(Arrays.asList(item));
                 logger.info("Configuration Properties added successfully", OperationLogEnum.ADD_CONFIG_PROPERTIES, ResultLogEnum.OK, startingDate);
             }
@@ -92,7 +92,7 @@ public class ConfigItemsCTL extends AbstractCTL implements IConfigItemsCTL {
                 log.debug("Deleting configuration items of type {}, having key: {}", type, itemKey);
             }
     
-            configItemsSRV.deleteItemByKey(type.getName(), itemKey);
+            configItemsSRV.deleteItemByKey(type.name(), itemKey);
             logger.info("Configuration Properties removed successfully", OperationLogEnum.REMOVE_CONFIG_PROPERTIES, ResultLogEnum.OK, startingDate);
         } catch (Exception e) {
             logger.error("Error encountered while removing configuration properties", OperationLogEnum.REMOVE_CONFIG_PROPERTIES, ResultLogEnum.KO, startingDate, ErrorLogEnum.KO_GENERIC);

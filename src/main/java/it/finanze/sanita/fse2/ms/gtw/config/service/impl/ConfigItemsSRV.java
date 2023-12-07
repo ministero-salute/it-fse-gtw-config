@@ -80,7 +80,7 @@ public class ConfigItemsSRV extends AbstractService implements IConfigItemsSRV {
     @Override
     public void updateItem(final ConfigItemTypeEnum type, final String itemKey, final String newValue) {
         try {
-            final boolean isUpdated = configItemsRepo.update(type.getName(), itemKey, newValue);
+            final boolean isUpdated = configItemsRepo.update(type.name(), itemKey, newValue);
             if (!isUpdated) {
                 throw new NotFoundException(String.format("Item of class %s and with key %s not found.", type, itemKey));
             }
