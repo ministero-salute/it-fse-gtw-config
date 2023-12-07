@@ -21,5 +21,6 @@ public enum ConfigItemTypeEnum {
     VALIDATOR,
     INI_CLIENT,
     EDS_CLIENT,
-    FHIR_MAPPING_ENGINE
+    FHIR_MAPPING_ENGINE,
+    RULES_MANAGER
 }
