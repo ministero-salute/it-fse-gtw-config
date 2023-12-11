@@ -17,6 +17,7 @@ package it.finanze.sanita.fse2.ms.gtw.config.enums;
 public enum ConfigItemTypeEnum {
     GENERIC,
     GARBAGE,
+    DISPATCHER,
     STATUS_MANAGER,
     VALIDATOR,
     INI_CLIENT,
