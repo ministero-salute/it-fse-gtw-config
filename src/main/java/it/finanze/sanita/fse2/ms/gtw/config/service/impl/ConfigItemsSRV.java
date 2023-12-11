@@ -11,13 +11,6 @@
  */
 package it.finanze.sanita.fse2.ms.gtw.config.service.impl;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-
 import it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemTypeEnum;
 import it.finanze.sanita.fse2.ms.gtw.config.exceptions.BusinessException;
 import it.finanze.sanita.fse2.ms.gtw.config.exceptions.NotFoundException;
@@ -26,6 +19,12 @@ import it.finanze.sanita.fse2.ms.gtw.config.repository.entity.ConfigItemETY;
 import it.finanze.sanita.fse2.ms.gtw.config.service.IConfigItemsSRV;
 import it.finanze.sanita.fse2.ms.gtw.config.utility.StringUtility;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
+import java.util.List;
 
 /**
  * Service implementation for configuration items.
@@ -63,14 +62,7 @@ public class ConfigItemsSRV extends AbstractService implements IConfigItemsSRV {
     @Override
     public List<ConfigItemETY> getConfigurationItems(final ConfigItemTypeEnum type) {
         try {
-            final List<ConfigItemETY> items = configItemsRepo.getConfigurationItems(type);
-            if (CollectionUtils.isEmpty(items)) {
-                throw new NotFoundException("No configuration items exists in database.");
-            } else {
-                return items;
-            }
-        } catch (final NotFoundException c) {
-            throw c;
+            return configItemsRepo.getConfigurationItems(type);
         } catch (final Exception e) {
             log.error("Error while retrieving configuration items", e);
             throw new BusinessException("Error while retrieving configuration items", e);
