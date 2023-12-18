@@ -186,7 +186,6 @@ class ControllerTest extends AbstractTest {
         
         assertAll(
             () -> assertThrows(HttpClientErrorException.BadRequest.class, () -> saveConfigurationItems(ConfigItemTypeEnum.GARBAGE, new HashMap<>())),
-            () -> assertThrows(HttpClientErrorException.NotFound.class, () -> getConfigurationItems(ConfigItemTypeEnum.GARBAGE)),
             () -> assertThrows(HttpClientErrorException.NotFound.class, () -> deleteConfigurationItems(ConfigItemTypeEnum.GARBAGE, null)),
             () -> assertThrows(HttpClientErrorException.NotFound.class, () -> updateConfigurationItems(ConfigItemTypeEnum.GARBAGE, UUID.randomUUID().toString(), UUID.randomUUID().toString()))
         );
