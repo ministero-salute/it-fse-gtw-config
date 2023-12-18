@@ -63,7 +63,7 @@ abstract class AbstractTest {
 
         final String url = getBaseURL() + "/config-items";
 		final UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
-            .queryParam("type", type.getName());
+            .queryParam("type", type.name());
         
         return restTemplate.getForObject(builder.toUriString(), ConfigItemDTO.class);
     }
@@ -92,7 +92,7 @@ abstract class AbstractTest {
             
             final HttpEntity<String> entity = new HttpEntity<String>(stringifiedObj, headers);
             final UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url).
-                    queryParam("type", type.getName());
+                    queryParam("type", type.name());
             
             return restTemplate.postForObject(builder.toUriString(), entity, ResponseDTO.class);
         } catch (Exception e) {
@@ -107,7 +107,7 @@ abstract class AbstractTest {
             final String url = getBaseURL() + "/config-items";
             
             final UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
-                .queryParam("type", type.getName())
+                .queryParam("type", type.name())
                 .queryParam("itemKey", keyItem);
             
             restTemplate.delete(builder.toUriString(), ResponseDTO.class);
@@ -123,7 +123,7 @@ abstract class AbstractTest {
             final String url = getBaseURL() + "/config-items";
             
             final UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
-                .queryParam("type", type.getName())
+                .queryParam("type", type.name())
                 .queryParam("itemKey", itemKey)
                 .queryParam("value", value);
             
