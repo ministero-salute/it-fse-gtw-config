@@ -1,8 +1,11 @@
 package it.finanze.sanita.fse2.ms.gtw.config.config;
 
-import it.finanze.sanita.fse2.ms.gtw.config.repository.entity.ConfigItemETY;
-import it.finanze.sanita.fse2.ms.gtw.config.service.IConfigItemsSRV;
-import lombok.extern.slf4j.Slf4j;
+import static it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemTypeEnum.GARBAGE;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
@@ -10,11 +13,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
-import static it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemTypeEnum.GARBAGE;
+import it.finanze.sanita.fse2.ms.gtw.config.repository.entity.ConfigItemETY;
+import it.finanze.sanita.fse2.ms.gtw.config.service.IConfigItemsSRV;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Profile(value = Constants.Profile.DOCKER)
@@ -43,7 +44,7 @@ public class DockerSetupCFG {
             // Insert
             service.saveConfigurationItems(
                 Collections.singletonList(
-                    new ConfigItemETY(GARBAGE.getName(), map)
+                    new ConfigItemETY(GARBAGE.name(), map)
                 )
             );
             log.info("Property has been set!");
