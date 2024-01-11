@@ -56,7 +56,7 @@ public final class Constants {
 		public static final String ISSUER_CF_CLEANING = "issuer-cf-cleaning";
 		public static final String SUBJECT_CLEANING = "subject-cleaning";
 		public static final String AUDIT_ENABLED = "audit-enabled";
-		public static final String CFG_RETENTION_DAYS = "cfg-retention-days";
+		public static final String CFG_ITEMS_RETENTION_DAY = "cfg-items-retention-day";
 		public static final String VALIDATED_DOCUMENT_RETENTION_DAY = "validated-document-retention-day";
 		public static final String EXPIRING_DATE_DAY = "expiring-date-day";
 		public static final String DELETE_EARLY_STRATEGY = "delete-early-strategy";

@@ -37,8 +37,8 @@ public class DockerSetupCFG {
     @Value("${audit-enabled}")
     private Boolean auditEnabled;
 
-    @Value("${cfg-retention-days}")
-    private Integer cfgRetentionDays;
+    @Value("${cfg-items-retention-day}")
+    private Integer cfgRetentionDay;
 
     @Value("${validated-document-retention-day}")
     private Integer validatedDocumentRetentionDay;
@@ -64,7 +64,7 @@ public class DockerSetupCFG {
         addConfigItem(GENERIC, ISSUER_CF_CLEANING, issuerCfCleaning.toString());
         addConfigItem(GENERIC, SUBJECT_CLEANING, subjectCleaning.toString());
         addConfigItem(GENERIC, AUDIT_ENABLED, auditEnabled.toString());
-        addConfigItem(GARBAGE, CFG_RETENTION_DAYS, cfgRetentionDays.toString());
+        addConfigItem(GARBAGE, CFG_ITEMS_RETENTION_DAY, cfgRetentionDay.toString());
         addConfigItem(GARBAGE, VALIDATED_DOCUMENT_RETENTION_DAY, validatedDocumentRetentionDay.toString());
         addConfigItem(GENERIC, EXPIRING_DATE_DAY, expiringDateDay.toString());
         addConfigItem(GENERIC, DELETE_EARLY_STRATEGY, deleteEarlyStrategy.toString());
