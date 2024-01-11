@@ -48,6 +48,19 @@ public final class Constants {
 			//This method is intentionally left blank.
 		}
 	}
+
+	public static final class Properties {
+
+		public static final String CFG_ITEMS_RETENTION_DAY = "cfg-items-retention-day";
+		public static final String CONTROL_LOG_PERSISTENCE_ENABLED = "control-log-persistence-enabled";
+
+		/**
+		 * Constructor.
+		 */
+		private Properties() {
+			//This method is intentionally left blank.
+		}
+	}
   
 	/**
 	 *	Constants.
