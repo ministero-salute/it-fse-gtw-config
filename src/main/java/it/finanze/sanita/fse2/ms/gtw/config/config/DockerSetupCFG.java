@@ -58,23 +58,20 @@ public class DockerSetupCFG {
     @EventListener(value = ApplicationStartedEvent.class)
     public void initialize() {
         log.info("Docker setup for properties");
-        List<ConfigItemETY> configs = new ArrayList<>();
         // Set configs
-        addConfigItem(configs, GENERIC, CONTROL_LOG_PERSISTENCE_ENABLED, controlLogPersistenceEnabled.toString());
-        addConfigItem(configs, GENERIC, KPI_LOG_PERSISTENCE_ENABLED, kpiLogPersistenceEnabled.toString());
-        addConfigItem(configs, GENERIC, ISSUER_CF_CLEANING, issuerCfCleaning.toString());
-        addConfigItem(configs, GENERIC, SUBJECT_CLEANING, subjectCleaning.toString());
-        addConfigItem(configs, GENERIC, AUDIT_ENABLED, auditEnabled.toString());
-        addConfigItem(configs, GARBAGE, CFG_RETENTION_DAYS, cfgRetentionDays.toString());
-        addConfigItem(configs, GARBAGE, VALIDATED_DOCUMENT_RETENTION_DAY, validatedDocumentRetentionDay.toString());
-        addConfigItem(configs, GENERIC, EXPIRING_DATE_DAY, expiringDateDay.toString());
-        addConfigItem(configs, GENERIC, DELETE_EARLY_STRATEGY, deleteEarlyStrategy.toString());
-        addConfigItem(configs, GENERIC, REMOVE_EDS_ENABLED, removeEdsEnabled.toString());
-        // Insert configs
-        service.saveConfigurationItems(configs);
+        addConfigItem(GENERIC, CONTROL_LOG_PERSISTENCE_ENABLED, controlLogPersistenceEnabled.toString());
+        addConfigItem(GENERIC, KPI_LOG_PERSISTENCE_ENABLED, kpiLogPersistenceEnabled.toString());
+        addConfigItem(GENERIC, ISSUER_CF_CLEANING, issuerCfCleaning.toString());
+        addConfigItem(GENERIC, SUBJECT_CLEANING, subjectCleaning.toString());
+        addConfigItem(GENERIC, AUDIT_ENABLED, auditEnabled.toString());
+        addConfigItem(GARBAGE, CFG_RETENTION_DAYS, cfgRetentionDays.toString());
+        addConfigItem(GARBAGE, VALIDATED_DOCUMENT_RETENTION_DAY, validatedDocumentRetentionDay.toString());
+        addConfigItem(GENERIC, EXPIRING_DATE_DAY, expiringDateDay.toString());
+        addConfigItem(GENERIC, DELETE_EARLY_STRATEGY, deleteEarlyStrategy.toString());
+        addConfigItem(GENERIC, REMOVE_EDS_ENABLED, removeEdsEnabled.toString());
     }
 
-    private void addConfigItem(List<ConfigItemETY> configs, ConfigItemTypeEnum type, String key, String value) {
+    private void addConfigItem(ConfigItemTypeEnum type, String key, String value) {
         log.info("Using " + key + " on {} ", value);
         String item = service.getConfigurationItemsValue(type, key);
         if(item != null && !item.isEmpty())  {
@@ -84,8 +81,11 @@ public class DockerSetupCFG {
             Map<String, String> map = new HashMap<>();
             map.put(key, value);
             ConfigItemETY config = new ConfigItemETY(type.name(), map);
-            // Add in list
-            configs.add(config);
+            // Insert
+            service.saveConfigurationItems(
+                    Collections.singletonList(config)
+            );
+            log.info(key + " property has been set!");
         }
     }
 
