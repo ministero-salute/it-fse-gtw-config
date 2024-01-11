@@ -51,16 +51,16 @@ public final class Constants {
 
 	public static final class Properties {
 
-		public static final String CONTROL_LOG_PERSISTENCE_ENABLED = "control-log-persistence-enabled";
-		public static final String KPI_LOG_PERSISTENCE_ENABLED = "kpi-log-persistence-enabled";
-		public static final String ISSUER_CF_CLEANING = "issuer-cf-cleaning";
-		public static final String SUBJECT_CLEANING = "subject-cleaning";
-		public static final String AUDIT_ENABLED = "audit-enabled";
-		public static final String CFG_ITEMS_RETENTION_DAY = "cfg-items-retention-day";
-		public static final String VALIDATED_DOCUMENT_RETENTION_DAY = "validated-document-retention-day";
-		public static final String EXPIRING_DATE_DAY = "expiring-date-day";
-		public static final String DELETE_EARLY_STRATEGY = "delete-early-strategy";
-		public static final String REMOVE_EDS_ENABLED = "remove-eds-enabled";
+		public static final String CONTROL_LOG_PERSISTENCE_ENABLED = "cfg.control-log-persistence-enabled";
+		public static final String KPI_LOG_PERSISTENCE_ENABLED = "cfg.kpi-log-persistence-enabled";
+		public static final String ISSUER_CF_CLEANING = "cfg.issuer-cf-cleaning";
+		public static final String SUBJECT_CLEANING = "cfg.subject-cleaning";
+		public static final String AUDIT_ENABLED = "cfg.audit-enabled";
+		public static final String CFG_RETENTION_DAYS = "cfg.cfg-retention-days";
+		public static final String VALIDATED_DOCUMENT_RETENTION_DAY = "cfg.validated-document-retention-day";
+		public static final String EXPIRING_DATE_DAY = "cfg.expiring-date-day";
+		public static final String DELETE_EARLY_STRATEGY = "cfg.delete-early-strategy";
+		public static final String REMOVE_EDS_ENABLED = "cfg.remove-eds-enabled";
 
 		/**
 		 * Constructor.

@@ -3,7 +3,6 @@ package it.finanze.sanita.fse2.ms.gtw.config.config;
 import it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemTypeEnum;
 import it.finanze.sanita.fse2.ms.gtw.config.repository.entity.ConfigItemETY;
 import it.finanze.sanita.fse2.ms.gtw.config.service.IConfigItemsSRV;
-import jdk.nashorn.internal.runtime.regexp.joni.Config;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,32 +25,32 @@ public class DockerSetupCFG {
     @Value("${cfg.control-log-persistence-enabled}")
     private Boolean controlLogPersistenceEnabled;
 
-    @Value("${kpi-log-persistence-enabled}")
+    @Value("${cfg.kpi-log-persistence-enabled}")
     private Boolean kpiLogPersistenceEnabled;
 
-    @Value("${issuer-cf-cleaning}")
+    @Value("${cfg.issuer-cf-cleaning}")
     private Boolean issuerCfCleaning;
 
-    @Value("${subject-cleaning}")
+    @Value("${cfg.subject-cleaning}")
     private Boolean subjectCleaning;
 
-    @Value("${audit-enabled}")
+    @Value("${cfg.audit-enabled}")
     private Boolean auditEnabled;
 
-    @Value("${cfg.retention-days.fallback}")
-    private Integer fallbackDataRetention;
+    @Value("${cfg.cfg-retention-days}")
+    private Integer cfgRetentionDays;
 
-    @Value("${validated-document-retention-day}")
+    @Value("${cfg.validated-document-retention-day}")
     private Integer validatedDocumentRetentionDay;
 
-    @Value("${expiring-date-day}")
+    @Value("${cfg.expiring-date-day}")
     private Integer expiringDateDay;
 
-    @Value("${delete-early-strategy}")
-    private Integer deleteEarlyStrategy;
+    @Value("${cfg.delete-early-strategy}")
+    private Boolean deleteEarlyStrategy;
 
-    @Value("${remove-eds-enabled}")
-    private Integer removeEdsEnabled;
+    @Value("${cfg.remove-eds-enabled}")
+    private Boolean removeEdsEnabled;
 
     @Autowired
     private IConfigItemsSRV service;
@@ -66,7 +65,7 @@ public class DockerSetupCFG {
         addConfigItem(configs, GENERIC, ISSUER_CF_CLEANING, issuerCfCleaning.toString());
         addConfigItem(configs, GENERIC, SUBJECT_CLEANING, subjectCleaning.toString());
         addConfigItem(configs, GENERIC, AUDIT_ENABLED, auditEnabled.toString());
-        addConfigItem(configs, GARBAGE, CFG_ITEMS_RETENTION_DAY, fallbackDataRetention.toString());
+        addConfigItem(configs, GARBAGE, CFG_RETENTION_DAYS, cfgRetentionDays.toString());
         addConfigItem(configs, GARBAGE, VALIDATED_DOCUMENT_RETENTION_DAY, validatedDocumentRetentionDay.toString());
         addConfigItem(configs, GENERIC, EXPIRING_DATE_DAY, expiringDateDay.toString());
         addConfigItem(configs, GENERIC, DELETE_EARLY_STRATEGY, deleteEarlyStrategy.toString());
