@@ -22,34 +22,34 @@ import static it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemTypeEnum.GENE
 @Configuration
 public class DockerSetupCFG {
 
-    @Value("${cfg.control-log-persistence-enabled}")
+    @Value("${control-log-persistence-enabled}")
     private Boolean controlLogPersistenceEnabled;
 
-    @Value("${cfg.kpi-log-persistence-enabled}")
+    @Value("${kpi-log-persistence-enabled}")
     private Boolean kpiLogPersistenceEnabled;
 
-    @Value("${cfg.issuer-cf-cleaning}")
+    @Value("${issuer-cf-cleaning}")
     private Boolean issuerCfCleaning;
 
-    @Value("${cfg.subject-cleaning}")
+    @Value("${subject-cleaning}")
     private Boolean subjectCleaning;
 
-    @Value("${cfg.audit-enabled}")
+    @Value("${audit-enabled}")
     private Boolean auditEnabled;
 
-    @Value("${cfg.cfg-retention-days}")
+    @Value("${cfg-retention-days}")
     private Integer cfgRetentionDays;
 
-    @Value("${cfg.validated-document-retention-day}")
+    @Value("${validated-document-retention-day}")
     private Integer validatedDocumentRetentionDay;
 
-    @Value("${cfg.expiring-date-day}")
+    @Value("${expiring-date-day}")
     private Integer expiringDateDay;
 
-    @Value("${cfg.delete-early-strategy}")
+    @Value("${delete-early-strategy}")
     private Boolean deleteEarlyStrategy;
 
-    @Value("${cfg.remove-eds-enabled}")
+    @Value("${remove-eds-enabled}")
     private Boolean removeEdsEnabled;
 
     @Autowired
@@ -75,7 +75,7 @@ public class DockerSetupCFG {
     }
 
     private void addConfigItem(List<ConfigItemETY> configs, ConfigItemTypeEnum type, String key, String value) {
-        log.info("Using" + key + " on {} ", value);
+        log.info("Using " + key + " on {} ", value);
         String item = service.getConfigurationItemsValue(type, key);
         if(item != null && !item.isEmpty())  {
             log.info("Property already set, skipping ...");
