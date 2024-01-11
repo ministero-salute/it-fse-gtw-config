@@ -64,6 +64,7 @@ public class DockerSetupCFG {
         addConfigItem(GENERIC, ISSUER_CF_CLEANING, issuerCfCleaning.toString());
         addConfigItem(GENERIC, SUBJECT_CLEANING, subjectCleaning.toString());
         addConfigItem(GENERIC, AUDIT_ENABLED, auditEnabled.toString());
+        addConfigItem(GENERIC, CFG_ITEMS_RETENTION_DAY, cfgRetentionDay.toString());
         addConfigItem(GARBAGE, CFG_ITEMS_RETENTION_DAY, cfgRetentionDay.toString());
         addConfigItem(GARBAGE, VALIDATED_DOCUMENT_RETENTION_DAY, validatedDocumentRetentionDay.toString());
         addConfigItem(GENERIC, EXPIRING_DATE_DAY, expiringDateDay.toString());
