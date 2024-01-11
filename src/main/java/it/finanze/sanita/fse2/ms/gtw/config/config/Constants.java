@@ -53,6 +53,7 @@ public final class Constants {
 
 		public static final String CFG_ITEMS_RETENTION_DAY = "cfg-items-retention-day";
 		public static final String CONTROL_LOG_PERSISTENCE_ENABLED = "control-log-persistence-enabled";
+		public static final String EXPIRING_DATE_DAY = "expiring-date-day";
 
 		/**
 		 * Constructor.

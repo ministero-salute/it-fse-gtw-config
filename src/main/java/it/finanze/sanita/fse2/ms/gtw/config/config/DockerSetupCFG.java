@@ -14,8 +14,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import static it.finanze.sanita.fse2.ms.gtw.config.config.Constants.Properties.CFG_ITEMS_RETENTION_DAY;
-import static it.finanze.sanita.fse2.ms.gtw.config.config.Constants.Properties.CONTROL_LOG_PERSISTENCE_ENABLED;
+import static it.finanze.sanita.fse2.ms.gtw.config.config.Constants.Properties.*;
 import static it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemTypeEnum.GARBAGE;
 import static it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemTypeEnum.GENERIC;
 
@@ -30,6 +29,9 @@ public class DockerSetupCFG {
     @Value("${cfg.control-log-persistence-enabled}")
     private Boolean controlLogPersistenceEnabled;
 
+    @Value("${cfg.expiring-date-day}")
+    private Integer expiringDateDay;
+
     @Autowired
     private IConfigItemsSRV service;
 
@@ -39,6 +41,7 @@ public class DockerSetupCFG {
         // Set properties
         setFallbackDataRetention();
         setControlLogPersistenceEnabled();
+        setExpiringDateDay();
     }
 
     private void setFallbackDataRetention() {
@@ -56,7 +59,7 @@ public class DockerSetupCFG {
                             new ConfigItemETY(GARBAGE.name(), map)
                     )
             );
-            log.info("data-retention property has been set!");
+            log.info(CFG_ITEMS_RETENTION_DAY + " property has been set!");
         }
     }
 
@@ -75,7 +78,26 @@ public class DockerSetupCFG {
                             new ConfigItemETY(GENERIC.name(), map)
                     )
             );
-            log.info("control-log-persistence-enabled property has been set!");
+            log.info(CONTROL_LOG_PERSISTENCE_ENABLED + " property has been set!");
+        }
+    }
+
+    private void setExpiringDateDay() {
+        log.info("Using expiring-date value of {} days", expiringDateDay);
+        String expiring = service.getConfigurationItemsValue(GENERIC, EXPIRING_DATE_DAY);
+        if(expiring != null && !expiring.isEmpty())  {
+            log.info("Property already set, skipping ...");
+        } else {
+            // Create object
+            Map<String, String> map = new HashMap<>();
+            map.put(EXPIRING_DATE_DAY, expiringDateDay.toString());
+            // Insert
+            service.saveConfigurationItems(
+                    Collections.singletonList(
+                            new ConfigItemETY(GENERIC.name(), map)
+                    )
+            );
+            log.info(EXPIRING_DATE_DAY + " property has been set!");
         }
     }
 
