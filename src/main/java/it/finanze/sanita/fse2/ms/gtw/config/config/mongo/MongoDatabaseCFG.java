@@ -42,12 +42,9 @@ public class MongoDatabaseCFG {
     @Bean
     public MongoDatabaseFactory mongoDatabaseFactory(final MongoPropertiesCFG mongoPropertiesCFG){
     	  ConnectionString connectionString = new ConnectionString(mongoPropertiesCFG.getUri());
-    	  MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
-    		        .applyConnectionString(connectionString)
-    		        .applyToSslSettings(builder -> builder
-    		                .invalidHostNameAllowed(true)
-    		        )
-    		        .build();
+          MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
+              .applyConnectionString(connectionString)
+              .build();
           return new SimpleMongoClientDatabaseFactory(MongoClients.create(mongoClientSettings), mongoPropertiesCFG.getSchemaName());
     }
 
