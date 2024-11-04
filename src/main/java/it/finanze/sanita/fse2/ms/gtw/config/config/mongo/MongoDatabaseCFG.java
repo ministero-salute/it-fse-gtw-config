@@ -45,9 +45,8 @@ public class MongoDatabaseCFG {
     	  MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
     		        .applyConnectionString(connectionString)
     		        .applyToSslSettings(builder -> builder
-                            .enabled(true) 
-                            .invalidHostNameAllowed(true) 
-                    )
+    		                .invalidHostNameAllowed(true)
+    		        )
     		        .build();
           return new SimpleMongoClientDatabaseFactory(MongoClients.create(mongoClientSettings), mongoPropertiesCFG.getSchemaName());
     }
