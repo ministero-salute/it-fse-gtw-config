@@ -12,6 +12,7 @@
 package it.finanze.sanita.fse2.ms.gtw.config.controller.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.sleuth.Tracer;
 
 import it.finanze.sanita.fse2.ms.gtw.config.dto.response.LogTraceInfoDTO;
 
@@ -22,7 +23,7 @@ public abstract class AbstractCTL {
 
 	
 	@Autowired
-	private org.springframework.cloud.sleuth.Tracer tracer;
+	private Tracer tracer;
 
 	protected LogTraceInfoDTO getLogTraceInfo() {
 		LogTraceInfoDTO out = new LogTraceInfoDTO(null, null);
