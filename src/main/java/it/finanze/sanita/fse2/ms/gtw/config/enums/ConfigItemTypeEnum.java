@@ -24,5 +24,6 @@ public enum ConfigItemTypeEnum {
     EDS_CLIENT,
     FHIR_MAPPING_ENGINE,
     RULES_MANAGER,
-    INDEXER
+    INDEXER,
+    LOG_COLLECTOR
 }
