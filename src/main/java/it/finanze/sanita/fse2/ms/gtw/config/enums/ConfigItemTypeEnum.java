@@ -25,5 +25,6 @@ public enum ConfigItemTypeEnum {
     FHIR_MAPPING_ENGINE,
     RULES_MANAGER,
     INDEXER,
-    LOG_COLLECTOR
+    LOG_COLLECTOR,
+    LOG_SENDER
 }
