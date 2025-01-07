@@ -57,23 +57,23 @@ Copyright 2022 (c) XXXX.
 Please check the [AUTHORS](AUTHORS) file for extended reference.
 
 ## Third-party component licences
-| Dependency                                                | Version | License                                                              |
-|-----------------------------------------------------------|---------|----------------------------------------------------------------------|
-| org.springframework.boot:spring-boot-starter-web          | 2.7.18  | Apache License 2.0                                                   |
-| org.apache.httpcomponents:httpclient                      | 4.5.14  | Apache License 2.0                                                   |
-| org.springframework.boot:spring-boot-starter-actuator     | 2.7.18  | Apache License 2.0                                                   |
-| io.micrometer:micrometer-registry-prometheus              | 1.9.17  | Apache License 2.0                                                   |
-| org.springframework.boot:spring-boot-starter-test         | 2.7.18  | Apache License 2.0                                                   |
-| org.springframework.boot:spring-boot-starter-data-mongodb | 2.7.18  | Apache License 2.0                                                   |
-| org.mongodb:mongodb-driver-sync                           | 5.2.1   | Apache License 2.0                                                   |
-| org.mongodb:mongodb-driver-core                           | 5.2.1   | Apache License 2.0                                                   |
-| org.mongodb:bson                                          | 5.2.1   | Apache License 2.0                                                   |
-| org.projectlombok:lombok                                  | 1.18.30 | MIT License                                                          |
-| org.springdoc:springdoc-openapi-ui                        | 1.6.11  | Apache License 2.0                                                   |
-| com.google.code.gson:gson                                 | 2.9.1   | Apache License 2.0                                                   |
-| org.springframework.cloud:spring-cloud-starter-sleuth     | 3.1.1   | Apache License 2.0                                                   |
-| ch.qos.logback.contrib:logback-json-classic               | 0.1.5   | (Eclipse Public License - v 1.0) (GNU Lesser General Public License) |
-| ch.qos.logback.contrib:logback-jackson                    | 0.1.5   | (Eclipse Public License - v 1.0) (GNU Lesser General Public License) |
+| Dependency                                                | Version | License            |
+|-----------------------------------------------------------|---------|--------------------|
+| org.springframework.boot:spring-boot-starter-web          | 2.7.18  | Apache License 2.0 |
+| org.apache.httpcomponents:httpclient                      | 4.5.14  | Apache License 2.0 |
+| org.springframework.boot:spring-boot-starter-actuator     | 2.7.18  | Apache License 2.0 |
+| io.micrometer:micrometer-registry-prometheus              | 1.9.17  | Apache License 2.0 |
+| org.springframework.boot:spring-boot-starter-test         | 2.7.18  | Apache License 2.0 |
+| org.springframework.boot:spring-boot-starter-data-mongodb | 2.7.18  | Apache License 2.0 |
+| org.mongodb:mongodb-driver-sync                           | 5.2.1   | Apache License 2.0 |
+| org.mongodb:mongodb-driver-core                           | 5.2.1   | Apache License 2.0 |
+| org.mongodb:bson                                          | 5.2.1   | Apache License 2.0 |
+| org.projectlombok:lombok                                  | 1.18.30 | MIT License        |
+| org.springdoc:springdoc-openapi-ui                        | 1.6.11  | Apache License 2.0 |
+| com.google.code.gson:gson                                 | 2.9.1   | Apache License 2.0 |
+| org.springframework.cloud:spring-cloud-starter-sleuth     | 3.1.1   | Apache License 2.0 |
+| ch.qos.logback.contrib:logback-json-classic               | 0.1.5   | EPL1.0 & LGPL2.1   |
+| ch.qos.logback.contrib:logback-jackson                    | 0.1.5   | EPL1.0 & LGPL2.1   |
 
 
 ## Licence details
