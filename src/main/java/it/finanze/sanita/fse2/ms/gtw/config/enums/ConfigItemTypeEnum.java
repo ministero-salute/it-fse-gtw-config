@@ -26,5 +26,6 @@ public enum ConfigItemTypeEnum {
     RULES_MANAGER,
     INDEXER,
     LOG_COLLECTOR,
-    LOG_SENDER
+    LOG_SENDER,
+    PROXY
 }
