@@ -14,7 +14,7 @@ package it.finanze.sanita.fse2.ms.gtw.config.config;
 
 import java.util.regex.Pattern;
 
-import org.springdoc.core.customizers.OpenApiCustomiser;
+import org.springdoc.core.customizers.OpenApiCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -34,7 +34,7 @@ public class OpenApiCFG {
 	}
 	
 	@Bean
-	public OpenApiCustomiser openApiCustomiser(final CustomSwaggerCFG customOpenapi) {
+	public OpenApiCustomizer openApiCustomiser(final CustomSwaggerCFG customOpenapi) {
 
 
 		return openApi -> {
@@ -71,7 +71,7 @@ public class OpenApiCFG {
 	}
 
 	@Bean
-	public OpenApiCustomiser customerGlobalHeaderOpenApiCustomiser() {
+	public OpenApiCustomizer customerGlobalHeaderOpenApiCustomiser() {
 		return openApi -> {
 			openApi.getPaths().values().forEach(pathItem -> pathItem.readOperations().forEach(operation -> {
 				final ApiResponses apiResponses = operation.getResponses();
