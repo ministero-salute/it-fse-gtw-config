@@ -42,7 +42,7 @@ public class LoggerHelper {
 				.op_timestamp_end(dateFormat.format(new Date()))
 				.build();
 
-		final String logMessage = StringUtility.toJSON(logDTO);
+		final String logMessage = StringUtility.toJSONJackson(logDTO);
 		log.trace(logMessage);
 	}
 
@@ -54,7 +54,7 @@ public class LoggerHelper {
 				.op_timestamp_end(dateFormat.format(new Date()))
 				.build();
 
-		final String logMessage = StringUtility.toJSON(logDTO);
+		final String logMessage = StringUtility.toJSONJackson(logDTO);
 		log.debug(logMessage);
 	}
 
@@ -66,7 +66,7 @@ public class LoggerHelper {
 				.op_timestamp_end(dateFormat.format(new Date()))
 				.build();
 
-		final String logMessage = StringUtility.toJSON(logDTO);
+		final String logMessage = StringUtility.toJSONJackson(logDTO);
 		log.info(logMessage);
 	}
 
@@ -78,7 +78,7 @@ public class LoggerHelper {
 				.op_timestamp_end(dateFormat.format(new Date()))
 				.build();
 
-		final String logMessage = StringUtility.toJSON(logDTO);
+		final String logMessage = StringUtility.toJSONJackson(logDTO);
 		log.warn(logMessage);
 	}
 
@@ -92,7 +92,7 @@ public class LoggerHelper {
 				.op_error_description(error.getDescription())
 				.build();
 
-		final String logMessage = StringUtility.toJSON(logDTO);
+		final String logMessage = StringUtility.toJSONJackson(logDTO);
 		log.error(logMessage);
 	}
 
