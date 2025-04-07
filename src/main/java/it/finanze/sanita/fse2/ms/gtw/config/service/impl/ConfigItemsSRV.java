@@ -31,15 +31,10 @@ import java.util.List;
  */
 @Slf4j
 @Service
-public class ConfigItemsSRV extends AbstractService implements IConfigItemsSRV {
+public class ConfigItemsSRV implements IConfigItemsSRV {
     
     @Value("${gateway.full-qualified-name}")
     private String gatewayName;
-
-    /**
-	 * Serial version uid.
-	 */
-	private static final long serialVersionUID = 3840282801652564751L;
 	
 	@Autowired
     private IConfigItemsRepo configItemsRepo;

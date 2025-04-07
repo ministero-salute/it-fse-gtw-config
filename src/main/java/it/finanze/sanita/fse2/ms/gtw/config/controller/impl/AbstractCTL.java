@@ -13,7 +13,7 @@ package it.finanze.sanita.fse2.ms.gtw.config.controller.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import brave.Tracer;
+import io.micrometer.tracing.Tracer;
 import it.finanze.sanita.fse2.ms.gtw.config.dto.response.LogTraceInfoDTO;
 
 /**
@@ -25,14 +25,14 @@ public abstract class AbstractCTL {
 	@Autowired
 	private Tracer tracer;
 
+
 	protected LogTraceInfoDTO getLogTraceInfo() {
 		LogTraceInfoDTO out = new LogTraceInfoDTO(null, null);
 		if (tracer.currentSpan() != null) {
 			out = new LogTraceInfoDTO(
-					tracer.currentSpan().context().spanIdString(), 
-					tracer.currentSpan().context().traceIdString());
+					tracer.currentSpan().context().spanId(), 
+					tracer.currentSpan().context().traceId());
 		}
 		return out;
 	}
-
 }
