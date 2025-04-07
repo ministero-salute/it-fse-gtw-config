@@ -61,6 +61,7 @@ public final class Constants {
 		public static final String EXPIRING_DATE_DAY = "expiring-date-day";
 		public static final String DELETE_EARLY_STRATEGY = "delete-early-strategy";
 		public static final String REMOVE_EDS_ENABLED = "remove-eds-enabled";
+		public static final String AUDIT_INI_ENABLED = "audit-ini-enabled";
 
 		/**
 		 * Constructor.

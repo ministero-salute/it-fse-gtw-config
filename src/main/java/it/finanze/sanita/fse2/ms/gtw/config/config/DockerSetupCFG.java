@@ -52,6 +52,9 @@ public class DockerSetupCFG {
     @Value("${remove-eds-enabled}")
     private Boolean removeEdsEnabled;
 
+    @Value("${audit-ini-enabled}")
+    private Boolean auditIniEnabled;
+    
     @Autowired
     private IConfigItemsSRV service;
 
@@ -70,6 +73,7 @@ public class DockerSetupCFG {
         addConfigItem(GENERIC, EXPIRING_DATE_DAY, expiringDateDay.toString());
         addConfigItem(GENERIC, DELETE_EARLY_STRATEGY, deleteEarlyStrategy.toString());
         addConfigItem(GENERIC, REMOVE_EDS_ENABLED, removeEdsEnabled.toString());
+        addConfigItem(GENERIC, AUDIT_INI_ENABLED, auditIniEnabled.toString());
     }
 
     private void addConfigItem(ConfigItemTypeEnum type, String key, String value) {
