@@ -13,25 +13,27 @@ package it.finanze.sanita.fse2.ms.gtw.config.controller.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import io.micrometer.tracing.Tracer;
+import io.opentelemetry.api.trace.SpanBuilder;
+import io.opentelemetry.api.trace.Tracer;
 import it.finanze.sanita.fse2.ms.gtw.config.dto.response.LogTraceInfoDTO;
+import static it.finanze.sanita.fse2.ms.gtw.config.config.Constants.Properties.MS_NAME;
 
 /**
  *	Abstract controller.
  */
 public abstract class AbstractCTL {
-
 	
 	@Autowired
 	private Tracer tracer;
 
-
 	protected LogTraceInfoDTO getLogTraceInfo() {
 		LogTraceInfoDTO out = new LogTraceInfoDTO(null, null);
-		if (tracer.currentSpan() != null) {
+		SpanBuilder spanbuilder = tracer.spanBuilder(MS_NAME);
+		
+		if (spanbuilder != null) {
 			out = new LogTraceInfoDTO(
-					tracer.currentSpan().context().spanId(), 
-					tracer.currentSpan().context().traceId());
+					spanbuilder.startSpan().getSpanContext().getSpanId(), 
+					spanbuilder.startSpan().getSpanContext().getTraceId());
 		}
 		return out;
 	}
