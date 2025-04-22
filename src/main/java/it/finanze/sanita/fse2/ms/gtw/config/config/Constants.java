@@ -11,21 +11,23 @@
  */
 package it.finanze.sanita.fse2.ms.gtw.config.config;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 /**
  * Constants application.
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class Constants {
 
- 
+	@NoArgsConstructor(access = AccessLevel.PRIVATE)
 	public static final class Collections {
 
 		public static final String CONFIG_DATA = "config_data";
-
-		private Collections() {
-
-		}
+ 
 	}
 	
+	@NoArgsConstructor(access = AccessLevel.PRIVATE)
 	public static final class Profile {
 
 		/**
@@ -33,24 +35,26 @@ public final class Constants {
 		 */
 		public static final String TEST = "test";
 
+		/**
+		 * Test profile.
+		 */
 		public static final String TEST_PREFIX = "test_";
 
 		/**
 		 * Dev profile.
 		 */
 		public static final String DEV = "dev";
-		public static final String DOCKER = "docker";
-
-		/** 
-		 * Constructor.
+		
+		/**
+		 * Docker profile.
 		 */
-		private Profile() {
-			//This method is intentionally left blank.
-		}
+		public static final String DOCKER = "docker";
+ 
 	}
 
+	@NoArgsConstructor(access = AccessLevel.PRIVATE)
 	public static final class Properties {
-
+		public static final String MS_NAME = "gtw-config";
 		public static final String CONTROL_LOG_PERSISTENCE_ENABLED = "control-log-persistence-enabled";
 		public static final String KPI_LOG_PERSISTENCE_ENABLED = "kpi-log-persistence-enabled";
 		public static final String ISSUER_CF_CLEANING = "issuer-cf-cleaning";
@@ -63,19 +67,8 @@ public final class Constants {
 		public static final String REMOVE_EDS_ENABLED = "remove-eds-enabled";
 		public static final String AUDIT_INI_ENABLED = "audit-ini-enabled";
 
-		/**
-		 * Constructor.
-		 */
-		private Properties() {
-			//This method is intentionally left blank.
-		}
+		 
 	}
-  
-	/**
-	 *	Constants.
-	 */
-	private Constants() {
-
-	}
+   
 
 }
