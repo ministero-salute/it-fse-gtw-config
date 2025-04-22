@@ -50,7 +50,7 @@ public class ConfigItemsCTL extends AbstractCTL implements IConfigItemsCTL {
 	@Override
 	public ResponseEntity<ConfigItemDTO> getConfigurationItems(final ConfigItemTypeEnum type, final HttpServletRequest request) {
 
-		log.debug("Searching for configuration items of type {}", type);
+		log.info("Searching for configuration items of type {}", type);
 
 		final List<ConfigItemETY> configItems = configItemsSRV.getConfigurationItems(type);
 		return new ResponseEntity<>(new ConfigItemDTO(getLogTraceInfo(), configItems, configItems.stream().mapToInt(item -> item.getItems().size()).sum()), HttpStatus.OK);
