@@ -119,12 +119,12 @@
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 		
-		 <!-- OpenTelemetry - Micrometer -->
-	    <dependency>
-	      <groupId>io.opentelemetry.instrumentation</groupId>
-	      <artifactId>opentelemetry-spring-boot-starter</artifactId>
-	    </dependency>
-			
+		<dependency>
+		  <groupId>io.micrometer</groupId>
+		  <artifactId>micrometer-tracing-bridge-otel</artifactId>
+		</dependency>
+
+ 
 	</dependencies>
 
 	<dependencyManagement>
@@ -227,41 +227,17 @@
 								<if>
 									<available file="infrastructure" />
 									<then>
-										<!-- copy common
-										resources of server
-										runtime to project
-										build directory -->
-										<copy
-											todir="${container.output.runtime}"
-											overwrite="true"
-											failonerror="false">
-											<fileset
-												dir="${config.infra}/runtime"
-												includes="**" />
+										<!-- copy common resources of server runtime to project build directory -->
+										<copy todir="${container.output.runtime}" overwrite="true" failonerror="false">
+											<fileset dir="${config.infra}/runtime" includes="**" />
 										</copy>
-										<!-- copy common
-										resources of server
-										runtime to project
-										build directory -->
-										<copy
-											todir="${container.output}"
-											overwrite="true"
-											failonerror="false">
-											<fileset
-												dir="${project.basedir}"
-												includes="Dockerfile" />
+										<!-- copy common resources of server runtime to project build directory -->
+										<copy todir="${container.output}" overwrite="true" failonerror="false">
+											<fileset dir="${project.basedir}" includes="Dockerfile" />
 										</copy>
-										<!-- copy common
-										resources of server
-										runtime to project
-										build directory -->
-										<copy
-											todir="${container.output}"
-											overwrite="true"
-											failonerror="false">
-											<fileset
-												dir="${project.basedir}/target"
-												includes="${project.artifactId}.jar" />
+										<!-- copy common resources of server runtime to project build directory -->
+										<copy todir="${container.output}" overwrite="true" failonerror="false">
+											<fileset dir="${project.basedir}/target" includes="${project.artifactId}.jar" />
 										</copy>
 									</then>
 								</if>
