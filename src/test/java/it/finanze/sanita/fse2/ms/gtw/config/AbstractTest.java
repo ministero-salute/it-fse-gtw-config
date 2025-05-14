@@ -16,7 +16,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.HttpEntity;
@@ -24,6 +23,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -49,7 +49,7 @@ abstract class AbstractTest {
     @Qualifier("restTemplate")
     private RestTemplate restTemplate;
 
-    @SpyBean
+    @MockitoSpyBean
     protected MongoTemplate mongoTemplate;
 
     private String getBaseURL() {
@@ -62,7 +62,7 @@ abstract class AbstractTest {
     protected ConfigItemDTO getConfigurationItems(final ConfigItemTypeEnum type) {
 
         final String url = getBaseURL() + "/config-items";
-		final UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
+		final UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url)
             .queryParam("type", type.name());
         
         return restTemplate.getForObject(builder.toUriString(), ConfigItemDTO.class);
@@ -91,7 +91,7 @@ abstract class AbstractTest {
             }
             
             final HttpEntity<String> entity = new HttpEntity<String>(stringifiedObj, headers);
-            final UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url).
+            final UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url).
                     queryParam("type", type.name());
             
             return restTemplate.postForObject(builder.toUriString(), entity, ResponseDTO.class);
@@ -106,7 +106,7 @@ abstract class AbstractTest {
         try {
             final String url = getBaseURL() + "/config-items";
             
-            final UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
+            final UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url)
                 .queryParam("type", type.name())
                 .queryParam("itemKey", keyItem);
             
@@ -122,7 +122,7 @@ abstract class AbstractTest {
         try {
             final String url = getBaseURL() + "/config-items";
             
-            final UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
+            final UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url)
                 .queryParam("type", type.name())
                 .queryParam("itemKey", itemKey)
                 .queryParam("value", value);
