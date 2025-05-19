@@ -11,8 +11,12 @@
  */
 package it.finanze.sanita.fse2.ms.gtw.config;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 public class ConfigApplication {
@@ -21,4 +25,14 @@ public class ConfigApplication {
 		SpringApplication.run(ConfigApplication.class, args);
 	}
 
+	 /**
+     * Definizione rest template.
+     * 
+     * @return	rest template
+     */
+    @Bean 
+    @Qualifier("restTemplate")
+    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+        return builder.build();
+    }
 }
