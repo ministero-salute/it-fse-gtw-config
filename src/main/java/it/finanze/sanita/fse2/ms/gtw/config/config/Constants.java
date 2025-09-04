@@ -49,7 +49,9 @@ public final class Constants {
 		 * Docker profile.
 		 */
 		public static final String DOCKER = "docker";
- 
+
+		public static final String MOCK = "mock";
+
 	}
 
 	@NoArgsConstructor(access = AccessLevel.PRIVATE)

@@ -18,9 +18,9 @@ import static it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemTypeEnum.GARB
 import static it.finanze.sanita.fse2.ms.gtw.config.enums.ConfigItemTypeEnum.GENERIC;
 
 @Slf4j
-@Profile(value = Constants.Profile.DOCKER)
+@Profile(value = Constants.Profile.MOCK)
 @Configuration
-public class DockerSetupCFG {
+public class MockDbCFG {
 
     @Value("${control-log-persistence-enabled}")
     private Boolean controlLogPersistenceEnabled;
